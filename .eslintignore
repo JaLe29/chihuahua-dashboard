@@ -1,0 +1,9 @@
+.yarn
+**/dist
+**/.*
+**/*.js
+**/*.css.d.ts
+**/*.scss.d.ts
+**/*.css
+**/*.scss
+**/*.min.js

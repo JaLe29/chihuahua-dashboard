@@ -1,0 +1,50 @@
+{
+  "name": "chihuahua-dashboard",
+  "root": true,
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "packages/**"
+  ],
+  "devDependencies": {
+    "@swc/core": "^1.7.36",
+    "@types/node": "^20.11.1",
+    "@types/prettier": "3.0.0",
+    "@typescript-eslint/eslint-plugin": "7.18.0",
+    "@typescript-eslint/parser": "7.18.0",
+    "@vitejs/plugin-react": "^4.3.2",
+    "@vitest/coverage-v8": "^1.5.2",
+    "eslint": "8.57.1",
+    "eslint-config-airbnb": "19.0.4",
+    "eslint-config-prettier": "9.1.0",
+    "eslint-import-resolver-typescript": "^3.6.3",
+    "eslint-plugin-import": "2.31.0",
+    "eslint-plugin-jsx-a11y": "6.10.2",
+    "eslint-plugin-no-only-tests": "3.3.0",
+    "eslint-plugin-prettier": "5.2.1",
+    "eslint-plugin-react": "7.37.2",
+    "eslint-plugin-react-hooks": "4.6.2",
+    "eslint-plugin-validate-jsx-nesting": "^0.1.1",
+    "identity-obj-proxy": "^3.0.0",
+    "jsdom": "16.7.0",
+    "postcss": "^8.4.47",
+    "prettier": "3.3.3",
+    "reflect-metadata": "^0.2.2",
+    "rimraf": "6.0.1",
+    "stylelint": "^15.11.0",
+    "stylelint-config-standard-scss": "^11.1.0",
+    "ts-node": "10.9.2",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "5.5.4",
+    "unplugin-swc": "^1.5.1",
+    "vite": "5.4.10",
+    "vite-tsconfig-paths": "^4.3.2",
+    "vitest": "1.6.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:JaLe29/chihuahua-dashboard.git"
+  },
+  "license": "ISC",
+  "packageManager": "yarn@4.4.0"
+}

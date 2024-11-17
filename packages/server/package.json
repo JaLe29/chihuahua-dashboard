@@ -1,0 +1,44 @@
+{
+	"name": "@chihuahua-dashboard/server",
+	"version": "1.0.0",
+	"license": "ISC",
+	"private": true,
+	"standalone": true,
+	"main": "dist/main.js",
+	"types": "dist/main.d.ts",
+	"prisma": {
+		"schema": "../db/prisma/schema.prisma"
+	},
+	"scripts": {
+		"build": "tsc --build tsconfig.build.json",
+		"clean": "rimraf dist && rimraf .cache",
+		"start:prod": "node --enable-source-maps ./dist/main.js",
+		"start:dev": "tsx --watch src/main.ts",
+		"test": "vitest --passWithNoTests",
+		"test:coverage": "yarn test --coverage",
+		"lint": "eslint \"src/**/*.ts\" --ignore-path ../../../.eslintignore",
+		"lint:fix": "eslint ./src --ext .ts --fix --ignore-path ../../../.eslintignore",
+		"typecheck": "tsc --build tsconfig.ci.json",
+		"prisma:generate": "prisma generate",
+		"prisma:studio": "prisma studio"
+	},
+	"dependencies": {
+		"@chihuahua-dashboard/shared": "workspace:*",
+		"@fastify/cors": "^10.0.1",
+		"@prisma/client": "5.22.0",
+		"@trpc/server": "^10.45.1",
+		"fastify": "^5.1.0",
+		"zod": "^3.23.8"
+	},
+	"devDependencies": {
+		"@types/bcrypt": "^5.0.2",
+		"@types/node": "^20.11.1",
+		"eslint": "8.57.1",
+		"prisma": "^5.22.0",
+		"rimraf": "6.0.1",
+		"tsconfig-paths": "^4.2.0",
+		"tsx": "^4.19.1",
+		"typescript": "5.5.4",
+		"vitest": "1.6.0"
+	}
+}
