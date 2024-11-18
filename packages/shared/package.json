@@ -19,6 +19,9 @@
     "prisma:generate": "prisma generate",
     "prisma:db:pull": "prisma db pull"
   },
+  "peerDependencies": {
+    "zod": "^3.22.4"
+  },
   "devDependencies": {
     "@types/node": "^20.11.1",
     "eslint": "8.57.1",

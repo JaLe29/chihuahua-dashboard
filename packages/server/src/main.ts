@@ -41,7 +41,7 @@ const start = async (): Promise<void> => {
 		} satisfies FastifyTRPCPluginOptions<AppRouter>['trpcOptions'],
 	});
 
-	await fastify.listen({ port: 3000 });
+	await fastify.listen({ port: 4000 });
 };
 
 start().catch(e => {

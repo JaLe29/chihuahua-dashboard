@@ -1,0 +1,36 @@
+name: Test
+
+on:
+  push:
+   branches:
+     - master
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20'
+
+    - name: Install Dependencies
+      if: steps.cache-yarn.outputs.cache-hit != 'true'
+      run: |
+        yarn install
+
+    - name: Prisma Generate
+      run: |
+        yarn workspace prisma:generate
+
+    - name: Prisma Generate
+      run: |
+        yarn workspace prisma:generate

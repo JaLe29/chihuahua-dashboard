@@ -11,7 +11,7 @@ module.exports = {
 		'airbnb',
 		'plugin:@typescript-eslint/recommended',
 		'plugin:import/typescript',
-		'prettier' // Nutné pro zamezení kolize ESLint s Prettier pravidly
+		'prettier'
 	],
 	settings: {
 		'import/resolver': {
@@ -28,7 +28,7 @@ module.exports = {
 		'react-hooks',
 		'validate-jsx-nesting',
 		'no-only-tests',
-		'prettier' // Zajišťuje, že všechny prettierové chyby budou opraveny s 'eslint --fix'
+		'prettier'
 	],
 	rules: {
 		'@typescript-eslint/ban-ts-comment': 'warn',
@@ -38,12 +38,6 @@ module.exports = {
 			}
 		}],
 		'@typescript-eslint/camelcase': 'off',
-		'@typescript-eslint/explicit-function-return-type': [
-			'error',
-			{
-				'allowExpressions': true
-			}
-		],
 		'@typescript-eslint/explicit-module-boundary-types': 'off',
 		'@typescript-eslint/lines-between-class-members': 'off',
 		'@typescript-eslint/no-explicit-any': 'off',
@@ -299,7 +293,5 @@ module.exports = {
 		es6: true,
 		node: true,
 		browser: true
+	}
 }
-
-
-

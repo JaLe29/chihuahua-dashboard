@@ -6,7 +6,7 @@ import type { AppRouter } from '@chihuahua-dashboard/server/src/trpc/router';
 
 export const trpc = createTRPCReact<AppRouter>();
 
-const BASE_API = 'http://localhost:3000';
+const BASE_API = 'http://localhost:4000';
 
 export const trpcClient = trpc.createClient({
 	// transformer: superjson as any,

@@ -6,6 +6,12 @@
   "workspaces": [
     "packages/**"
   ],
+  "scripts": {
+    "start:server": "yarn workspace @chihuahua-dashboard/server start:dev",
+    "start:client": "yarn workspace @chihuahua-dashboard/client dev",
+    "prisma:generate": "yarn workspaces foreach -A run prisma:generate",
+    "lint": "yarn workspaces foreach -A run lint"
+  },
   "devDependencies": {
     "@swc/core": "^1.7.36",
     "@types/node": "^20.11.1",
