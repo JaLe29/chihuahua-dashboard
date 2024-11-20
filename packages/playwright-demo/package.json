@@ -1,0 +1,22 @@
+{
+	"name": "@chihuahua-dashboard/playwright-demo",
+	"scripts": {
+		"clean": "rimraf dist && rimraf .cache && rimraf tsconfig.tsbuildinfo",
+		"clean:test": "rimraf ./playwright-report",
+		"lint": "eslint \"src/**/*.ts\"",
+		"lint:fix": "eslint ./src --ext .ts --fix",
+		"typecheck": "yarn build",
+		"build": "tsc --build tsconfig.json",
+		"test": "yarn clean:test && playwright test",
+		"deps": "npx playwright install",
+		"show-report": "yarn playwright show-report"
+	},
+	"dependencies": {
+		"@chihuahua-dashboard/reporter": "*",
+		"@playwright/test": "^1.49.0"
+	},
+	"devDependencies": {
+		"@types/node": "^20.11.1",
+		"rimraf": "^5.0.5"
+	}
+}

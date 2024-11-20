@@ -21,6 +21,7 @@ model Project {
     name      String
 
     runs      Run[]
+	config    ProjectConfig?
 }
 
 model Run {
@@ -29,5 +30,14 @@ model Run {
     updatedAt DateTime @updatedAt
 
     projectId String   @db.ObjectId
+    project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+}
+
+model ProjectConfig {
+    id        String   @id @default(auto()) @map("_id") @db.ObjectId
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    projectId String   @db.ObjectId @unique
     project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
 }

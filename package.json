@@ -9,6 +9,9 @@
   "scripts": {
     "start:server": "yarn workspace @chihuahua-dashboard/server start:dev",
     "start:client": "yarn workspace @chihuahua-dashboard/client dev",
+    "start:api": "yarn workspace @chihuahua-dashboard/api start:dev",
+    "start:test": "yarn workspace @chihuahua-dashboard/playwright-demo test",
+    "watch:reporter": "yarn workspace @chihuahua-dashboard/reporter start:dev",
     "prisma:generate": "yarn workspaces foreach -A run prisma:generate",
     "lint": "yarn workspaces foreach -A run lint"
   },
