@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "@chihuahua-dashboard/shared-api": "workspace:*",
-    "@playwright/test": "^1.49.0"
+    "@playwright/test": "^1.49.0",
+    "zod": "^3.22.4"
   }
 }
