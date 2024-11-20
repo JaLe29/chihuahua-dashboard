@@ -2931,8 +2931,8 @@ __metadata:
   linkType: hard
 
 "antd@npm:^5.15.4":
-  version: 5.22.1
-  resolution: "antd@npm:5.22.1"
+  version: 5.22.2
+  resolution: "antd@npm:5.22.2"
   dependencies:
     "@ant-design/colors": "npm:^7.1.0"
     "@ant-design/cssinjs": "npm:^1.21.1"
@@ -2955,7 +2955,7 @@ __metadata:
     rc-dialog: "npm:~9.6.0"
     rc-drawer: "npm:~7.2.0"
     rc-dropdown: "npm:~4.2.0"
-    rc-field-form: "npm:~2.5.0"
+    rc-field-form: "npm:~2.5.1"
     rc-image: "npm:~7.11.0"
     rc-input: "npm:~1.6.3"
     rc-input-number: "npm:~9.3.0"
@@ -2964,7 +2964,7 @@ __metadata:
     rc-motion: "npm:^2.9.3"
     rc-notification: "npm:~5.6.2"
     rc-pagination: "npm:~4.3.0"
-    rc-picker: "npm:~4.8.0"
+    rc-picker: "npm:~4.8.1"
     rc-progress: "npm:~4.0.0"
     rc-rate: "npm:~2.13.0"
     rc-resize-observer: "npm:^1.4.0"
@@ -2986,7 +2986,7 @@ __metadata:
   peerDependencies:
     react: ">=16.9.0"
     react-dom: ">=16.9.0"
-  checksum: 10/52ec44475d889106b0b98db2ab10e2b550f898e178bcbbcf1a26ccf79b7d32f7f84faf9df089330f615e12d96fca6c5174cd46915f92e51e44c8a02c7b01d504
+  checksum: 10/35f23abef7e2a7922640922128518a632f60868275daf51128cd8212c7ecfa102ad57f18de847a24aac8d3b70c5fe45f8fefb61ad01cd48ac4ccb07e10cea85a
   languageName: node
   linkType: hard
 
@@ -8513,7 +8513,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rc-field-form@npm:~2.5.0":
+"rc-field-form@npm:~2.5.1":
   version: 2.5.1
   resolution: "rc-field-form@npm:2.5.1"
   dependencies:
@@ -8667,7 +8667,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rc-picker@npm:~4.8.0":
+"rc-picker@npm:~4.8.1":
   version: 4.8.1
   resolution: "rc-picker@npm:4.8.1"
   dependencies:
