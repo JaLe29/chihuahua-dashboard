@@ -47,7 +47,6 @@
 	"branchPrefix": "renovate",
 	"assigneesSampleSize": 1,
 	"reviewersSampleSize": 1,
-	"prHourlyLimit": 2,
 	"prConcurrentLimit": 5,
 	"timezone": "Europe/Prague",
 	"extends": [
