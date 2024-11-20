@@ -1,0 +1,13 @@
+{
+	"extends": "./tsconfig.ci.json",
+	"exclude": [
+		".yarn/*",
+		"**/dist",
+		"../../@types/*.typetest.*"
+	],
+	"references": [
+		{
+			"path": "../shared-api/tsconfig.build.json"
+		}
+	]
+}
