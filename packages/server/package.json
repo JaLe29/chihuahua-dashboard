@@ -16,8 +16,8 @@
 		"start:dev": "tsx --watch src/main.ts",
 		"test": "vitest --passWithNoTests",
 		"test:coverage": "yarn test --coverage",
-		"lint": "eslint \"src/**/*.ts\" --ignore-path ../../../.eslintignore",
-		"lint:fix": "eslint ./src --ext .ts --fix --ignore-path ../../../.eslintignore",
+		"lint": "eslint \"src/**/*.ts\" --ignore-path ../../.eslintignore",
+		"lint:fix": "eslint ./src --ext .ts --fix --ignore-path ../../.eslintignore",
 		"typecheck": "tsc --build tsconfig.ci.json",
 		"prisma:generate": "prisma generate",
 		"prisma:studio": "prisma studio"
