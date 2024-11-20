@@ -8,6 +8,7 @@ import type {
 	FullConfig,
 	Suite,
 } from '@playwright/test/reporter';
+import type { Action, Payload } from '@chihuahua-dashboard/shared-api';
 import type { ChihuahuaReporterOptions } from './types';
 
 // types shared
@@ -24,7 +25,7 @@ export class ChihuahuaReporter implements Reporter {
 		console.log('Reporter construchjjhdsadastorddsds dsdsadsadsa');
 	}
 
-	private async sendStep(action: string, payload: any) {
+	private async sendStep(action: Action, payload: Payload) {
 		try {
 			const r = await fetch(`${this.options.api.apiUrl}/v1/playwright/step`, {
 				method: 'POST',

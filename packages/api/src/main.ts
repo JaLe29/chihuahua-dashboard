@@ -6,6 +6,7 @@ import { serializerCompiler, validatorCompiler } from 'fastify-type-provider-zod
 import z from 'zod';
 import cors from '@fastify/cors';
 import { PrismaClient } from '@prisma/client';
+import { ACTION, PAYLOAD } from '@chihuahua-dashboard/shared-api';
 
 const prisma = new PrismaClient();
 
@@ -42,8 +43,8 @@ const start = async (): Promise<void> => {
 		// Define your schema
 		schema: {
 			body: z.object({
-				action: z.enum(['onBegin']),
-				payload: z.any(),
+				action: ACTION,
+				payload: PAYLOAD,
 			}),
 			response: {
 				200: z.object({
