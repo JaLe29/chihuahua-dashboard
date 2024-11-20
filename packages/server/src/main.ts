@@ -2,7 +2,6 @@
 import type { CreateFastifyContextOptions, FastifyTRPCPluginOptions } from '@trpc/server/adapters/fastify';
 import { fastifyTRPCPlugin } from '@trpc/server/adapters/fastify';
 import Fastify from 'fastify';
-import { hello } from '@chihuahua-dashboard/shared';
 import cors from '@fastify/cors';
 import { PrismaClient } from '@prisma/client';
 import { createContext } from './trpc/context';
@@ -13,10 +12,6 @@ const prisma = new PrismaClient();
 const start = async (): Promise<void> => {
 	await prisma.$connect();
 
-	const projects = await prisma.project.findMany();
-
-	console.log(projects);
-	console.log(hello());
 	const fastify = Fastify({
 		logger: true,
 		maxParamLength: 5000,

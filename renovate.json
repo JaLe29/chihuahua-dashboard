@@ -1,6 +1,65 @@
 {
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:recommended"
-  ]
+	"$schema": "https://docs.renovatebot.com/renovate-schema.json",
+	"packageRules": [
+		{
+			"matchPackageNames": [
+				"typescript",
+				"yarn"
+			],
+			"enabled": false
+		},
+		{
+			"matchDepTypes": [
+				"dependencies",
+				"devDependencies"
+			],
+			"matchUpdateTypes": [
+				"major"
+			],
+			"enabled": false
+		},
+		{
+			"groupName": "JS dependencies",
+			"matchFileNames": [
+				"**/package.json"
+			],
+			"matchDepTypes": [
+				"dependencies",
+				"devDependencies"
+			],
+			"matchUpdateTypes": [
+				"patch"
+			],
+			"automerge": false,
+			"autoApprove": false,
+			"enabled": true
+		}
+	],
+	"npm": {
+		"minimumReleaseAge": "10 days"
+	},
+	"enabledManagers": [
+		"npm"
+	],
+	"baseBranches": [
+		"main"
+	],
+	"branchPrefix": "renovate",
+	"assigneesSampleSize": 1,
+	"reviewersSampleSize": 1,
+	"prHourlyLimit": 2,
+	"prConcurrentLimit": 5,
+	"timezone": "Europe/Prague",
+	"extends": [
+		"config:base",
+		":dependencyDashboard",
+		"group:linters",
+		"group:test",
+		"group:monorepos",
+		"group:recommended",
+		"schedule:nonOfficeHours",
+		":preserveSemverRanges",
+		":rebaseStalePrs",
+		":enableVulnerabilityAlertsWithLabel('security')"
+	]
 }
