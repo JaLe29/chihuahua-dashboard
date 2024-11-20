@@ -14,7 +14,7 @@
     "clean": "rimraf dist && rimraf .cache",
     "test": "vitest --passWithNoTests",
     "test:coverage": "yarn test --coverage",
-    "lint": "eslint ./src --ext .ts,.tsx --ignore-path ../.eslintignore",
+    "lint": "eslint ./src --ext .ts,.tsx --ignore-path ../../.eslintignore",
     "lint:fix": "eslint ./src --ext .ts,.tsx --fix",
     "typecheck": "tsc --build tsconfig.ci.json"
   },

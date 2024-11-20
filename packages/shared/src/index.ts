@@ -1,5 +1,3 @@
-export const hello = (): string => {
-	return "Hello, world #!";
-};
+export const hello = (): string => 'Hello, world #!';
 
-export * from "./schema";
+export * from './schema';

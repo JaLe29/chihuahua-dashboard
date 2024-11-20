@@ -1,7 +1,6 @@
 import type { MenuProps } from 'antd';
-import { Button, Card, Dropdown, Modal, Popconfirm, Space } from 'antd';
-import { DownOutlined, EyeOutlined, SettingOutlined, SmileOutlined } from '@ant-design/icons';
-import modal from 'antd/es/modal';
+import { Button, Card, Dropdown, Modal, Space } from 'antd';
+import { EyeOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import { trpc, type RouterOutput } from '../../utils/trpc';
 
