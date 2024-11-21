@@ -2277,15 +2277,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/prettier@npm:3.0.0":
-  version: 3.0.0
-  resolution: "@types/prettier@npm:3.0.0"
-  dependencies:
-    prettier: "npm:*"
-  checksum: 10/a2a512d304e5bcf78f38089dc88ad19215e6ab871d435a17aef3ce538a63b07c0e359c18db23989dc1ed9fff96d99eee1f680416080184df5c7e0e3bf767e165
-  languageName: node
-  linkType: hard
-
 "@types/prop-types@npm:*":
   version: 15.7.13
   resolution: "@types/prop-types@npm:15.7.13"
@@ -3362,7 +3353,6 @@ __metadata:
   dependencies:
     "@swc/core": "npm:^1.7.36"
     "@types/node": "npm:^20.11.1"
-    "@types/prettier": "npm:3.0.0"
     "@typescript-eslint/eslint-plugin": "npm:7.18.0"
     "@typescript-eslint/parser": "npm:7.18.0"
     "@vitejs/plugin-react": "npm:^4.3.2"
@@ -7648,15 +7638,6 @@ __metadata:
   dependencies:
     fast-diff: "npm:^1.1.2"
   checksum: 10/00ce8011cf6430158d27f9c92cfea0a7699405633f7f1d4a45f07e21bf78e99895911cbcdc3853db3a824201a7c745bd49bfea8abd5fb9883e765a90f74f8392
-  languageName: node
-  linkType: hard
-
-"prettier@npm:*":
-  version: 2.2.0
-  resolution: "prettier@npm:2.2.0"
-  bin:
-    prettier: bin-prettier.js
-  checksum: 10/2caeb0ccbded3fcc36ccfc06a7c7cf7c311a14ca1a7d7cefefe3f04aaa160ae90bec9a365c9f6ba2d575d0e9caf4057e807a99a5de39c6439a6507ad1c89b979
   languageName: node
   linkType: hard
 
