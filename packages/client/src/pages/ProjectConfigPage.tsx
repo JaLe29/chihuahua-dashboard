@@ -1,22 +1,53 @@
 import { PageContainer, ProCard, ProForm, ProFormDigit, type ProFormInstance } from '@ant-design/pro-components';
 import { css } from '@emotion/css';
-import { Button } from 'antd';
+import { Button, Collapse, Divider, Modal, notification } from 'antd';
 import { useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { WithActiveProject } from '../components/WithActiveProject';
 import { useActiveProject } from '../hooks/useActiveProject';
+import { useProjects } from '../hooks/useProjects';
 import { trpc } from '../utils/trpc';
 
 type FormButtonProps = { loading: boolean } | undefined;
 
 const ProjectConfigPageInner: React.FC = () => {
+	const navigate = useNavigate();
 	const updateConfig = trpc.projectConfig.updateConfig.useMutation();
-	const { activeProjectId } = useActiveProject();
+	const { activeProjectId, clearActiveProject } = useActiveProject();
+	const { refetch } = useProjects();
+
 	const formRef = useRef<
 		ProFormInstance<{
 			maxTimeout: number;
 			retention: number;
 		}>
 	>();
+
+	const deleteProject = trpc.project.deleteProject.useMutation();
+
+	const handleDeleteProject = async (): Promise<void> => {
+		await deleteProject.mutateAsync({ id: activeProjectId! });
+		refetch();
+		clearActiveProject();
+		notification.success({
+			message: 'Project has been deleted',
+		});
+		navigate('/');
+	};
+
+	const handleDeleteClick = (): void => {
+		Modal.confirm({
+			title: 'Delete project',
+			content: 'Are you sure you want to delete this project?',
+			okText: 'Delete',
+			okType: 'danger',
+			cancelText: 'Cancel',
+			onOk: async () => {
+				await handleDeleteProject();
+			},
+		});
+	};
+
 	const getConfig = trpc.projectConfig.getConfig.useQuery({ id: activeProjectId ?? 'TODO' });
 
 	if (getConfig.isLoading) {
@@ -38,6 +69,9 @@ const ProjectConfigPageInner: React.FC = () => {
 				}>
 					onFinish={async values => {
 						await updateConfig.mutateAsync({ id: activeProjectId ?? 'TODO', data: values });
+						notification.success({
+							message: 'Project configuration has been updated',
+						});
 					}}
 					formRef={formRef}
 					initialValues={formDefaultData}
@@ -108,6 +142,38 @@ const ProjectConfigPageInner: React.FC = () => {
 						/>
 					</ProForm.Group>
 				</ProForm>
+			</ProCard>
+			<Divider />
+			<ProCard>
+				<Collapse
+					items={[
+						{
+							label: 'Danger zone',
+							key: '1',
+							children: (
+								<>
+									<p>
+										<b>
+											This api token is used for authentication when sending requests to the
+											server from reporter
+										</b>
+									</p>
+									<p
+										className={css`
+											display: flex;
+											justify-content: flex-end;
+											gap: 8px;
+										`}
+									>
+										<Button danger onClick={handleDeleteClick}>
+											Delete project
+										</Button>
+									</p>
+								</>
+							),
+						},
+					]}
+				/>
 			</ProCard>
 		</PageContainer>
 	);

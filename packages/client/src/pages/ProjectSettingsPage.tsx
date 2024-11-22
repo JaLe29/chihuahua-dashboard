@@ -1,6 +1,6 @@
 import { PageContainer, ProCard, ProForm, ProFormText, type ProFormInstance } from '@ant-design/pro-components';
 import { css } from '@emotion/css';
-import { Button } from 'antd';
+import { Button, Collapse, Divider, Modal, notification } from 'antd';
 import { useRef } from 'react';
 import { WithActiveProject } from '../components/WithActiveProject';
 import { useActiveProject } from '../hooks/useActiveProject';
@@ -10,7 +10,9 @@ type FormButtonProps = { loading: boolean } | undefined;
 
 const ProjectSettingsPageInner: React.FC = () => {
 	const updateProjectSettings = trpc.project.updateProjectSettings.useMutation();
+	const regenerateProjectToken = trpc.project.regenerateProjectToken.useMutation();
 	const { activeProjectId } = useActiveProject();
+	const getProjectToken = trpc.project.getProjectToken.useQuery({ id: activeProjectId ?? 'TODO' });
 	const formRef = useRef<
 		ProFormInstance<{
 			maxTimeout: number;
@@ -18,6 +20,23 @@ const ProjectSettingsPageInner: React.FC = () => {
 		}>
 	>();
 	const getProjectSettings = trpc.project.getProjectSettings.useQuery({ id: activeProjectId ?? 'TODO' });
+
+	const handleRegenerateTokenClick = (): void => {
+		Modal.confirm({
+			title: 'Regenerate project token',
+			content: 'Are you sure you want to regenerate the project token?',
+			okText: 'Regenerate',
+			okType: 'danger',
+			cancelText: 'Cancel',
+			onOk: async () => {
+				await regenerateProjectToken.mutateAsync({ id: activeProjectId ?? 'TODO' });
+				await getProjectToken.refetch();
+				notification.success({
+					message: 'Project token has been regenerated',
+				});
+			},
+		});
+	};
 
 	if (getProjectSettings.isLoading) {
 		return <div>Loading...</div>;
@@ -38,6 +57,9 @@ const ProjectSettingsPageInner: React.FC = () => {
 				}>
 					onFinish={async values => {
 						await updateProjectSettings.mutateAsync({ id: activeProjectId ?? 'TODO', data: values });
+						notification.success({
+							message: 'Project settings have been updated',
+						});
 					}}
 					formRef={formRef}
 					initialValues={formDefaultData}
@@ -99,6 +121,41 @@ const ProjectSettingsPageInner: React.FC = () => {
 						/>
 					</ProForm.Group>
 				</ProForm>
+			</ProCard>
+			<Divider />
+			<ProCard>
+				<Collapse
+					items={[
+						{
+							label: 'API Token',
+							key: '1',
+							children: (
+								<>
+									<p
+										className={css`
+											padding: 8px;
+											background-color: #f0f5ff;
+											border-radius: 4px;
+										`}
+									>
+										<b>{getProjectToken.data?.token}</b>
+									</p>
+									<p
+										className={css`
+											display: flex;
+											justify-content: flex-end;
+											gap: 8px;
+										`}
+									>
+										<Button danger onClick={handleRegenerateTokenClick}>
+											Regenerate token
+										</Button>
+									</p>
+								</>
+							),
+						},
+					]}
+				/>
 			</ProCard>
 		</PageContainer>
 	);

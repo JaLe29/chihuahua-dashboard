@@ -19,7 +19,7 @@
 			"enabled": false
 		},
 		{
-			"groupName": "JS dependencies",
+			"groupName": "TS dependencies",
 			"matchFileNames": [
 				"**/package.json"
 			],
@@ -27,16 +27,14 @@
 				"dependencies",
 				"devDependencies"
 			],
-			"matchUpdateTypes": [
-				"patch"
-			],
+			"matchUpdateTypes": ["minor", "patch"],
 			"automerge": true,
 			"autoApprove": true,
 			"enabled": true
 		}
 	],
 	"npm": {
-		"minimumReleaseAge": "10 days"
+		"minimumReleaseAge": "3 days"
 	},
 	"enabledManagers": [
 		"npm"
@@ -44,7 +42,7 @@
 	"baseBranches": [
 		"main"
 	],
-	"branchPrefix": "renovate", 
+	"branchPrefix": "renovate",
 	"timezone": "Europe/Prague",
 	"extends": [
 		"config:base",
@@ -53,7 +51,6 @@
 		"group:test",
 		"group:monorepos",
 		"group:recommended",
-		"schedule:nonOfficeHours",
 		":preserveSemverRanges",
 		":rebaseStalePrs",
 		":enableVulnerabilityAlertsWithLabel('security')"

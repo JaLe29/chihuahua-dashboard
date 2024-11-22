@@ -6,6 +6,7 @@ interface Props {
 	activeProjectId?: string;
 	activeProjectName?: string;
 	setActiveProject: (projectId: string, activeProjectName: string, initialized?: boolean) => void;
+	clearActiveProject: () => void;
 	// Whether the active project has been initialized
 	initialized: boolean;
 	setInitialized: (initialized: boolean) => void;
@@ -21,13 +22,15 @@ export const useDeviceStore: UseBoundStore<StoreApi<Props>> = create(set => ({
 
 		set({ activeProjectId: projectId, activeProjectName });
 	},
+	clearActiveProject: () => set({ activeProjectId: undefined, activeProjectName: undefined }),
 	initialized: false,
 	setInitialized: (initialized: boolean) => set({ initialized }),
 }));
 
 export const useActiveProject = (): Props => {
 	const { setHash } = useUrlHash();
-	const { activeProjectId, activeProjectName, setActiveProject, initialized, setInitialized } = useDeviceStore();
+	const { activeProjectId, activeProjectName, setActiveProject, clearActiveProject, initialized, setInitialized } =
+		useDeviceStore();
 
 	const setActiveProjectFn = (projectIdIn: string, activeProjectNameIn: string, initializedIn?: boolean) => {
 		setHash(projectIdIn);
@@ -40,5 +43,6 @@ export const useActiveProject = (): Props => {
 		setActiveProject: setActiveProjectFn,
 		initialized,
 		setInitialized,
+		clearActiveProject,
 	};
 };

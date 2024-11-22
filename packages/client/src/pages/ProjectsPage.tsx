@@ -1,4 +1,4 @@
-import { PageContainer } from '@ant-design/pro-components';
+import { PageContainer, ProCard } from '@ant-design/pro-components';
 import { Col, Empty, Row } from 'antd';
 import { CreateProjectButton } from '../components/CreateProjectButton';
 import { ProjectCard } from '../components/ProjectCard/ProjectCard';
@@ -27,7 +27,20 @@ export const ProjectsPage: React.FC = () => {
 						</Col>
 					))}
 				</Row>
-				{getProjects.data?.length === 0 && <Empty />}
+				{getProjects.data?.length === 0 && (
+					<ProCard>
+						<Empty
+							description={
+								<div>
+									<p>No projects found, create one to get started</p>
+									<div>
+										<CreateProjectButton type="primary" />
+									</div>
+								</div>
+							}
+						/>
+					</ProCard>
+				)}
 			</div>
 			{/* 		</ProCard>{ */}
 		</PageContainer>

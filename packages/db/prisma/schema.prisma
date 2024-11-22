@@ -21,6 +21,8 @@ model Project {
     name      String
 	description String?
 
+    token     String
+
     runs   Run[]
     config ProjectConfig?
 }
