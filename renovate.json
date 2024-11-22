@@ -30,8 +30,8 @@
 			"matchUpdateTypes": [
 				"patch"
 			],
-			"automerge": false,
-			"autoApprove": false,
+			"automerge": true,
+			"autoApprove": true,
 			"enabled": true
 		}
 	],
@@ -44,10 +44,7 @@
 	"baseBranches": [
 		"main"
 	],
-	"branchPrefix": "renovate",
-	"assigneesSampleSize": 1,
-	"reviewersSampleSize": 1,
-	"prConcurrentLimit": 5,
+	"branchPrefix": "renovate", 
 	"timezone": "Europe/Prague",
 	"extends": [
 		"config:base",
