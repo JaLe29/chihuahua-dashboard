@@ -1,14 +1,14 @@
-import type {
-	Reporter,
-	TestCase,
-	TestResult,
-	TestError,
-	FullResult,
-	TestStep,
-	FullConfig,
-	Suite,
-} from '@playwright/test/reporter';
 import type { Action, Payload } from '@chihuahua-dashboard/shared-api';
+import type {
+	FullConfig,
+	FullResult,
+	Reporter,
+	Suite,
+	TestCase,
+	TestError,
+	TestResult,
+	TestStep,
+} from '@playwright/test/reporter';
 import type { ChihuahuaReporterOptions } from './types';
 
 // types shared

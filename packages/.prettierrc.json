@@ -7,5 +7,6 @@
   "requireConfig": false,
   "arrowParens": "avoid",
   "bracketSpacing": true,
-  "semi": true
+  "semi": true,
+  "plugins": ["prettier-plugin-organize-imports"]
 }

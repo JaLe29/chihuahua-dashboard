@@ -1,8 +1,8 @@
 import { createTRPCProxyClient, httpLink } from '@trpc/client';
 import { createTRPCReact } from '@trpc/react-query';
 // eslint-disable-next-line import/no-relative-packages
-import type { inferRouterInputs, inferRouterOutputs } from '@trpc/server';
 import type { AppRouter } from '@chihuahua-dashboard/server/src/trpc/router';
+import type { inferRouterInputs, inferRouterOutputs } from '@trpc/server';
 
 export const trpc = createTRPCReact<AppRouter>();
 

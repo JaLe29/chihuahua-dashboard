@@ -1,12 +1,12 @@
 /* eslint-disable no-console */
 
+import { ACTION, PAYLOAD } from '@chihuahua-dashboard/shared-api';
+import cors from '@fastify/cors';
+import { PrismaClient } from '@prisma/client';
 import Fastify from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { serializerCompiler, validatorCompiler } from 'fastify-type-provider-zod';
 import z from 'zod';
-import cors from '@fastify/cors';
-import { PrismaClient } from '@prisma/client';
-import { ACTION, PAYLOAD } from '@chihuahua-dashboard/shared-api';
 
 const prisma = new PrismaClient();
 

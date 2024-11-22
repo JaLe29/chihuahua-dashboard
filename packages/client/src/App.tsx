@@ -1,10 +1,12 @@
-import React from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import React from 'react';
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom';
-import { trpc, trpcClient } from './utils/trpc';
 import { InAppLayout } from './InAppLayout';
-import { ProjectsPage } from './pages/ProjectsPage';
+import { ProjectConfigPage } from './pages/ProjectConfigPage';
 import { ProjectPage } from './pages/ProjectPage';
+import { ProjectSettingsPage } from './pages/ProjectSettingsPage';
+import { ProjectsPage } from './pages/ProjectsPage';
+import { trpc, trpcClient } from './utils/trpc';
 
 const queryClient = new QueryClient({
 	defaultOptions: {
@@ -19,7 +21,9 @@ export const App: React.FC = () => {
 		createRoutesFromElements(
 			<Route element={<InAppLayout />} path="/">
 				<Route path="" Component={ProjectsPage} />
-				<Route path="project/:id" Component={ProjectPage} />
+				<Route path="project" Component={ProjectPage} />
+				<Route path="config" Component={ProjectConfigPage} />
+				<Route path="settings" Component={ProjectSettingsPage} />
 				<Route path="*" Component={ProjectsPage} />
 			</Route>,
 		),

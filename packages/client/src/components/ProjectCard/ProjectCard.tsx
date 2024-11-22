@@ -1,61 +1,39 @@
-import type { MenuProps } from 'antd';
-import { Button, Card, Dropdown, Modal, Space } from 'antd';
-import { EyeOutlined } from '@ant-design/icons';
-import { Link } from 'react-router-dom';
-import { trpc, type RouterOutput } from '../../utils/trpc';
+import { SunFilled, SunOutlined } from '@ant-design/icons';
+import { ProCard } from '@ant-design/pro-components';
+import { css } from '@emotion/css';
+import { Button, theme } from 'antd';
+import { useActiveProject } from '../../hooks/useActiveProject';
+import { type RouterOutput } from '../../utils/trpc';
 
 interface Props {
 	project: RouterOutput['project']['getProjects'][number];
-	refetch: () => Promise<void>;
 }
 
-export const ProjectCard: React.FC<Props> = ({ project, refetch }) => {
-	const deleteProject = trpc.project.deleteProject.useMutation();
+export const ProjectCard: React.FC<Props> = ({ project }) => {
+	const { token } = theme.useToken();
+	const { activeProjectId, setActiveProject } = useActiveProject();
 
-	const handleDeleteProject = async (): Promise<void> => {
-		await deleteProject.mutateAsync({ id: project.id });
-		await refetch();
-	};
-
-	const items: MenuProps['items'] = [
-		{
-			key: '4',
-			danger: true,
-			label: 'Delete project',
-			onClick: () => {
-				Modal.confirm({
-					title: 'Delete project',
-					content: 'Are you sure you want to delete this project?',
-					okText: 'Delete',
-					okType: 'danger',
-					cancelText: 'Cancel',
-					onOk: async () => {
-						await handleDeleteProject();
-					},
-				});
-			},
-		},
-	];
+	const isActive = project.id === activeProjectId;
 
 	return (
-		<Card
+		<ProCard
+			className={css`
+				border: 1px solid ${isActive ? token.colorInfoActive : token.colorBorder};
+			`}
 			title={project.name}
+			bordered
 			extra={
-				<Dropdown menu={{ items }}>
-					<Button type="link">
-						<Space>...</Space>
-					</Button>
-				</Dropdown>
+				<Button
+					shape="circle"
+					type={isActive ? 'primary' : 'default'}
+					icon={isActive ? <SunFilled /> : <SunOutlined />}
+					onClick={() => setActiveProject(project.id, project.name)}
+				/>
 			}
-			actions={[
-				<Link key="view" to={`/project/${project.id}`}>
-					<EyeOutlined />
-				</Link>,
-			]}
 		>
-			<p>Card content</p>
-			<p>Card content</p>
-			<p>Card content</p>
-		</Card>
+			<div>Card content</div>
+			<div>Card content</div>
+			<div>Card content</div>
+		</ProCard>
 	);
 };

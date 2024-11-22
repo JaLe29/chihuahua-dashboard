@@ -1,9 +1,10 @@
 /* eslint-disable no-console */
+import cors from '@fastify/cors';
+import { PrismaClient } from '@prisma/client';
 import type { CreateFastifyContextOptions, FastifyTRPCPluginOptions } from '@trpc/server/adapters/fastify';
 import { fastifyTRPCPlugin } from '@trpc/server/adapters/fastify';
 import Fastify from 'fastify';
-import cors from '@fastify/cors';
-import { PrismaClient } from '@prisma/client';
+import { ProjectService } from './services/project.service';
 import { createContext } from './trpc/context';
 import { appRouter, type AppRouter } from './trpc/router';
 
@@ -21,14 +22,15 @@ const start = async (): Promise<void> => {
 		// put your options here
 	});
 
-	// Declare a route
-	fastify.get('/', (request, reply) => reply.send({ hello: 'world' }));
+	const services = {
+		projectService: new ProjectService(prisma),
+	};
 
 	await fastify.register(fastifyTRPCPlugin, {
 		prefix: '/trpc',
 		trpcOptions: {
 			router: appRouter,
-			createContext: ({ req, res }: CreateFastifyContextOptions) => createContext({ req, res }, prisma),
+			createContext: ({ req, res }: CreateFastifyContextOptions) => createContext({ req, res }, prisma, services),
 			onError({ path, error }) {
 				// report to error monitoring
 				console.error(`Error in tRPC handler on path '${path}':`, error);

@@ -19,25 +19,30 @@ model Project {
     updatedAt DateTime @updatedAt
     // -----------------------
     name      String
+	description String?
 
-    runs      Run[]
-	config    ProjectConfig?
+    runs   Run[]
+    config ProjectConfig?
 }
 
 model Run {
+    // -----------------------
     id        String   @id @default(auto()) @map("_id") @db.ObjectId
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
-
+    // -----------------------
     projectId String   @db.ObjectId
     project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
 }
 
 model ProjectConfig {
+    // -----------------------
     id        String   @id @default(auto()) @map("_id") @db.ObjectId
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
+    // -----------------------
 
-    projectId String   @db.ObjectId @unique
-    project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+    data      Json
+    projectId String  @unique @db.ObjectId
+    project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
 }
