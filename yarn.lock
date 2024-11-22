@@ -693,7 +693,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime@npm:^7.10.1, @babel/runtime@npm:^7.10.4, @babel/runtime@npm:^7.11.1, @babel/runtime@npm:^7.11.2, @babel/runtime@npm:^7.12.5, @babel/runtime@npm:^7.16.3, @babel/runtime@npm:^7.16.7, @babel/runtime@npm:^7.18.0, @babel/runtime@npm:^7.18.3, @babel/runtime@npm:^7.20.0, @babel/runtime@npm:^7.20.7, @babel/runtime@npm:^7.21.0, @babel/runtime@npm:^7.22.5, @babel/runtime@npm:^7.23.2, @babel/runtime@npm:^7.23.6, @babel/runtime@npm:^7.23.8, @babel/runtime@npm:^7.23.9, @babel/runtime@npm:^7.24.4, @babel/runtime@npm:^7.24.7, @babel/runtime@npm:^7.24.8, @babel/runtime@npm:^7.25.7, @babel/runtime@npm:^7.5.5, @babel/runtime@npm:^7.6.2, @babel/runtime@npm:^7.7.2, @babel/runtime@npm:^7.9.0":
+"@babel/runtime@npm:^7.10.1, @babel/runtime@npm:^7.10.4, @babel/runtime@npm:^7.11.1, @babel/runtime@npm:^7.11.2, @babel/runtime@npm:^7.12.5, @babel/runtime@npm:^7.16.3, @babel/runtime@npm:^7.16.7, @babel/runtime@npm:^7.18.0, @babel/runtime@npm:^7.18.3, @babel/runtime@npm:^7.20.0, @babel/runtime@npm:^7.20.7, @babel/runtime@npm:^7.21.0, @babel/runtime@npm:^7.22.5, @babel/runtime@npm:^7.23.2, @babel/runtime@npm:^7.23.6, @babel/runtime@npm:^7.23.8, @babel/runtime@npm:^7.23.9, @babel/runtime@npm:^7.24.4, @babel/runtime@npm:^7.24.7, @babel/runtime@npm:^7.24.8, @babel/runtime@npm:^7.25.7, @babel/runtime@npm:^7.5.5, @babel/runtime@npm:^7.6.2, @babel/runtime@npm:^7.7.2":
   version: 7.26.0
   resolution: "@babel/runtime@npm:7.26.0"
   dependencies:
@@ -860,7 +860,6 @@ __metadata:
     "@tanstack/react-query": "npm:^4.36.1"
     "@testing-library/react": "npm:13.4.0"
     "@trpc/client": "npm:^10.45.2"
-    "@trpc/react": "npm:^9.27.4"
     "@trpc/react-query": "npm:^10.45.2"
     "@trpc/server": "npm:^10.45.2"
     "@types/react": "npm:18.3.12"
@@ -2643,21 +2642,6 @@ __metadata:
     react: ">=16.8.0"
     react-dom: ">=16.8.0"
   checksum: 10/c7ea51e6a9e2be539e7a5b9323d134250dd45b40d715aa25aa6e6d5c8a22f7a0fae787e19353d6cd467a5d049c6a9f48a2c564edd71cadd191086d2d70212301
-  languageName: node
-  linkType: hard
-
-"@trpc/react@npm:^9.27.4":
-  version: 9.27.4
-  resolution: "@trpc/react@npm:9.27.4"
-  dependencies:
-    "@babel/runtime": "npm:^7.9.0"
-  peerDependencies:
-    "@trpc/client": 9.27.4
-    "@trpc/server": 9.27.4
-    react: ">=16.8.0"
-    react-dom: ">=16.8.0"
-    react-query: ^3.37.0
-  checksum: 10/97dc3b8813f0afa69e795daf90ce2746466a4b6610e69145a6b440bbb20e0ca188e8020a4cea053c3dc8416b51f1cefce82fd9aee02beb3adc62fe69067494f6
   languageName: node
   linkType: hard
 
