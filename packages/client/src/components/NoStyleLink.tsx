@@ -1,12 +1,13 @@
 import { css } from '@emotion/css';
 import { Link, type LinkProps } from 'react-router-dom';
+import { useActiveProject } from '../hooks/useActiveProject';
 
 interface Props extends LinkProps {}
 
 export const NoStyleLink: React.FC<Props> = ({ children, to, ...props }) => {
-	// const { hash } = useUrlHash();
+	const { activeProjectId } = useActiveProject();
 
-	const toUrl = to;
+	const toUrl = activeProjectId ? `${to}#${activeProjectId}` : to;
 
 	return (
 		<Link

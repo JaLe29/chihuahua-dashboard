@@ -80,6 +80,7 @@ const ProjectSettingsPageInner: React.FC = () => {
 							width="lg"
 							required
 							tooltip="Name of the project"
+							placeholder="Name of the project"
 							rules={[
 								{
 									required: true,
@@ -94,6 +95,7 @@ const ProjectSettingsPageInner: React.FC = () => {
 							label="Description"
 							width="lg"
 							tooltip="Description of the project"
+							placeholder="Description of the project"
 						/>
 					</ProForm.Group>
 				</ProForm>

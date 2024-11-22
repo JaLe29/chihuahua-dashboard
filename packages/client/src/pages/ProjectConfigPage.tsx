@@ -81,6 +81,7 @@ const ProjectConfigPageInner: React.FC = () => {
 							required
 							min={1}
 							tooltip="Test execution timeout value (minutes). Serves as a failsafe mechanism to terminate tests that exceed the specified duration, protecting against non-terminating tests."
+							placeholder="Test execution timeout value (minutes)"
 							rules={[
 								{
 									required: true,
@@ -97,6 +98,7 @@ const ProjectConfigPageInner: React.FC = () => {
 							required
 							min={1}
 							tooltip="Data retention period (days) for test execution results. Determines the automatic cleanup interval for historical test data. Older records will be permanently deleted to maintain system performance and storage efficiency."
+							placeholder="Data retention period (days)"
 							rules={[
 								{
 									required: true,

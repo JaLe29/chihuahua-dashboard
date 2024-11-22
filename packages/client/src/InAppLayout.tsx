@@ -4,7 +4,7 @@ import type { ProSettings } from '@ant-design/pro-components';
 import { ProConfigProvider, ProLayout } from '@ant-design/pro-components';
 import { ConfigProvider, Dropdown } from 'antd';
 import React, { useState } from 'react';
-import { Link, Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import { NoStyleLink } from './components/NoStyleLink';
 import { useActiveProject } from './hooks/useActiveProject';
 import { useProjects } from './hooks/useProjects';
@@ -75,11 +75,7 @@ export const InAppLayout: React.FC = () => {
 													path: '/projects',
 													routes: projects?.map(project => ({
 														path: `/project/${project.id}`,
-														name: (
-															<NoStyleLink to={`/project/${project.id}`}>
-																{project.name}
-															</NoStyleLink>
-														),
+														name: <NoStyleLink to="/project">{project.name}</NoStyleLink>,
 													})),
 												},
 												{
@@ -164,10 +160,10 @@ export const InAppLayout: React.FC = () => {
 						}}
 						headerTitleRender={(logo, title, _) => {
 							const defaultDom = (
-								<Link to="/">
+								<NoStyleLink to="/">
 									{logo}
 									{title}
-								</Link>
+								</NoStyleLink>
 							);
 							if (typeof window === 'undefined') {
 								return defaultDom;

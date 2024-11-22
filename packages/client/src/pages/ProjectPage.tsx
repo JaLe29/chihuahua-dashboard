@@ -1,4 +1,5 @@
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import { NoStyleLink } from '../components/NoStyleLink';
 
 export const ProjectPage = () => {
 	const { projectId } = useParams();
@@ -8,7 +9,7 @@ export const ProjectPage = () => {
 
 	return (
 		<div>
-			ProjectPage<Link to={`/project/${projectId}/config`}>Settings</Link>
+			ProjectPage<NoStyleLink to={`/project/${projectId}/config`}>Settings</NoStyleLink>
 		</div>
 	);
 };
