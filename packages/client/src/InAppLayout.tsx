@@ -7,7 +7,6 @@ import React, { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { NoStyleLink } from './components/NoStyleLink';
 import { useActiveProject } from './hooks/useActiveProject';
-import { useProjects } from './hooks/useProjects';
 
 const SETTINGS: Partial<ProSettings> = {
 	fixSiderbar: true,
@@ -28,10 +27,6 @@ const SearchInput = ({ isMobile }: { isMobile: boolean }) => {
 				alignItems: 'center',
 				marginInlineEnd: isMobile ? undefined : 24,
 			}}
-			onMouseDown={e => {
-				e.stopPropagation();
-				e.preventDefault();
-			}}
 		>
 			{!initialized ? 'Loading' : activeProjectName || 'No active project'}
 		</div>
@@ -39,8 +34,6 @@ const SearchInput = ({ isMobile }: { isMobile: boolean }) => {
 };
 
 export const InAppLayout: React.FC = () => {
-	const { projects } = useProjects();
-
 	const [pathname, setPathname] = useState('/list/sub-page/sub-sub-page1');
 
 	if (typeof document === 'undefined') {
@@ -66,47 +59,31 @@ export const InAppLayout: React.FC = () => {
 									path: '/list',
 									routes: [
 										{
-											path: '/',
-											name: 'Home',
+											path: '/project',
+											name: 'Project',
 											routes: [
 												{
-													name: 'Projects',
 													icon: <CrownFilled />,
-													path: '/projects',
-													routes: projects?.map(project => ({
-														path: `/project/${project.id}`,
-														name: <NoStyleLink to="/project">{project.name}</NoStyleLink>,
-													})),
-												},
-												{
-													path: 'sub-sub-page2',
-													name: '2',
-													icon: <CrownFilled />,
-													component: './Welcome',
-												},
-												{
-													path: 'sub-sub-page3',
-													name: '3',
-													icon: <CrownFilled />,
-													component: './Welcome',
+													path: '/project',
+													name: <NoStyleLink to="/project">Project</NoStyleLink>,
 												},
 											],
 										},
 										{
-											path: '/list/sub-page2',
-											name: '4',
-											icon: <CrownFilled />,
-											component: './Welcome',
-										},
-										{
-											icon: <CrownFilled />,
 											path: '/settings',
-											name: <NoStyleLink to="/settings">Settings</NoStyleLink>,
-										},
-										{
-											icon: <CrownFilled />,
-											path: '/config',
-											name: <NoStyleLink to="/config">Config</NoStyleLink>,
+											name: 'Settings',
+											routes: [
+												{
+													icon: <CrownFilled />,
+													path: '/settings',
+													name: <NoStyleLink to="/settings">Settings</NoStyleLink>,
+												},
+												{
+													icon: <CrownFilled />,
+													path: '/config',
+													name: <NoStyleLink to="/config">Config</NoStyleLink>,
+												},
+											],
 										},
 									],
 								},

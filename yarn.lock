@@ -89,7 +89,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ant-design/icons@npm:^5.0.0, @ant-design/icons@npm:^5.0.1, @ant-design/icons@npm:^5.5.1":
+"@ant-design/icons@npm:^5.0.0, @ant-design/icons@npm:^5.5.1":
   version: 5.5.1
   resolution: "@ant-design/icons@npm:5.5.1"
   dependencies:
@@ -853,7 +853,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@chihuahua-dashboard/client@workspace:packages/client"
   dependencies:
-    "@ant-design/icons": "npm:^5.0.1"
+    "@ant-design/icons": "npm:^5.5.1"
     "@ant-design/pro-components": "npm:^2.8.2"
     "@chihuahua-dashboard/shared": "workspace:*"
     "@emotion/css": "npm:^11.13.5"
@@ -866,12 +866,12 @@ __metadata:
     "@types/react-dom": "npm:18.3.1"
     "@types/react-router-dom": "npm:^5.3.3"
     "@vitejs/plugin-react": "npm:^4.3.3"
-    antd: "npm:^5.15.4"
+    antd: "npm:^5.22.2"
     eslint: "npm:8.57.1"
     react: "npm:18.3.1"
     react-dom: "npm:18.3.1"
     react-is: "npm:^18.3.1"
-    react-router-dom: "npm:6.28.0"
+    react-router-dom: "npm:7.0.0"
     rimraf: "npm:^6.0.1"
     typescript: "npm:5.6.3"
     vite: "npm:5.4.11"
@@ -2187,13 +2187,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@remix-run/router@npm:1.21.0":
-  version: 1.21.0
-  resolution: "@remix-run/router@npm:1.21.0"
-  checksum: 10/cf0fb69d19c1b79095ff67c59cea89086f3982a9a54c8a993818a60fc76e0ebab5a8db647c1a96a662729fad8e806ddd0a96622adf473f5a9f0b99998b2dbad4
-  languageName: node
-  linkType: hard
-
 "@rollup/pluginutils@npm:^5.1.0":
   version: 5.1.0
   resolution: "@rollup/pluginutils@npm:5.1.0"
@@ -2733,6 +2726,13 @@ __metadata:
   dependencies:
     "@types/node": "npm:*"
   checksum: 10/b1f97532ffe6079cb57a464f28b5b37a30bc9620f43469e1f27ab9c979c8a114be5b667e7b115a5556fd5be463b65968da9bb32573c6faf74fecf6e565d8974b
+  languageName: node
+  linkType: hard
+
+"@types/cookie@npm:^0.6.0":
+  version: 0.6.0
+  resolution: "@types/cookie@npm:0.6.0"
+  checksum: 10/b883348d5bf88695fbc2c2276b1c49859267a55cae3cf11ea1dccc1b3be15b466e637ce3242109ba27d616c77c6aa4efe521e3d557110b4fdd9bc332a12445c2
   languageName: node
   linkType: hard
 
@@ -3313,9 +3313,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"antd@npm:^5.15.4":
-  version: 5.22.1
-  resolution: "antd@npm:5.22.1"
+"antd@npm:^5.22.2":
+  version: 5.22.2
+  resolution: "antd@npm:5.22.2"
   dependencies:
     "@ant-design/colors": "npm:^7.1.0"
     "@ant-design/cssinjs": "npm:^1.21.1"
@@ -3338,7 +3338,7 @@ __metadata:
     rc-dialog: "npm:~9.6.0"
     rc-drawer: "npm:~7.2.0"
     rc-dropdown: "npm:~4.2.0"
-    rc-field-form: "npm:~2.5.0"
+    rc-field-form: "npm:~2.5.1"
     rc-image: "npm:~7.11.0"
     rc-input: "npm:~1.6.3"
     rc-input-number: "npm:~9.3.0"
@@ -3347,7 +3347,7 @@ __metadata:
     rc-motion: "npm:^2.9.3"
     rc-notification: "npm:~5.6.2"
     rc-pagination: "npm:~4.3.0"
-    rc-picker: "npm:~4.8.0"
+    rc-picker: "npm:~4.8.1"
     rc-progress: "npm:~4.0.0"
     rc-rate: "npm:~2.13.0"
     rc-resize-observer: "npm:^1.4.0"
@@ -3369,7 +3369,7 @@ __metadata:
   peerDependencies:
     react: ">=16.9.0"
     react-dom: ">=16.9.0"
-  checksum: 10/52ec44475d889106b0b98db2ab10e2b550f898e178bcbbcf1a26ccf79b7d32f7f84faf9df089330f615e12d96fca6c5174cd46915f92e51e44c8a02c7b01d504
+  checksum: 10/35f23abef7e2a7922640922128518a632f60868275daf51128cd8212c7ecfa102ad57f18de847a24aac8d3b70c5fe45f8fefb61ad01cd48ac4ccb07e10cea85a
   languageName: node
   linkType: hard
 
@@ -8420,7 +8420,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rc-field-form@npm:~2.5.0":
+"rc-field-form@npm:~2.5.1":
   version: 2.5.1
   resolution: "rc-field-form@npm:2.5.1"
   dependencies:
@@ -8574,7 +8574,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rc-picker@npm:~4.8.0":
+"rc-picker@npm:~4.8.1":
   version: 4.8.1
   resolution: "rc-picker@npm:4.8.1"
   dependencies:
@@ -8943,27 +8943,33 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-router-dom@npm:6.28.0":
-  version: 6.28.0
-  resolution: "react-router-dom@npm:6.28.0"
+"react-router-dom@npm:7.0.0":
+  version: 7.0.0
+  resolution: "react-router-dom@npm:7.0.0"
   dependencies:
-    "@remix-run/router": "npm:1.21.0"
-    react-router: "npm:6.28.0"
+    react-router: "npm:7.0.0"
   peerDependencies:
-    react: ">=16.8"
-    react-dom: ">=16.8"
-  checksum: 10/e637825132ea96c3514ef7b8322f9bf0b752a942d6b4ffc4c20e389b5911726adf3dba8208ed4b97bf5b9c3bd465d9d1a1db1a58a610a8d528f18d890e0b143f
+    react: ">=18"
+    react-dom: ">=18"
+  checksum: 10/bdb3a2544ac034ccd311ebcc6551c627c12a499b3885a0732ca3f6d9ede8dbf8f73461bccf45808c4bb936efcf5ab035628698b876ea3208c756d8d111a72c45
   languageName: node
   linkType: hard
 
-"react-router@npm:6.28.0":
-  version: 6.28.0
-  resolution: "react-router@npm:6.28.0"
+"react-router@npm:7.0.0":
+  version: 7.0.0
+  resolution: "react-router@npm:7.0.0"
   dependencies:
-    "@remix-run/router": "npm:1.21.0"
+    "@types/cookie": "npm:^0.6.0"
+    cookie: "npm:^1.0.1"
+    set-cookie-parser: "npm:^2.6.0"
+    turbo-stream: "npm:2.4.0"
   peerDependencies:
-    react: ">=16.8"
-  checksum: 10/f021a644513144884a567d9c2dcc432e8e3233f931378c219c5a3b5b842340f0faca86225a708bafca1e9010965afe1a7dada28aef5b7b6138c885c0552d9a7d
+    react: ">=18"
+    react-dom: ">=18"
+  peerDependenciesMeta:
+    react-dom:
+      optional: true
+  checksum: 10/6b15d15b07925bb31d59f7154db0931f64e11a4cbdaf03e868994450197c8ddcc12fffbc48a1a36789ce758a5426ae9ee5714784a71dc5eb2c7c16b6e627a61f
   languageName: node
   linkType: hard
 
@@ -10316,6 +10322,13 @@ __metadata:
   bin:
     tsx: dist/cli.mjs
   checksum: 10/4c5610ed1fb2f80d766681f8ac7827e1e8118dfe354c18f74800691f3ef1e9ed676a29842ab818806bcf8613cdc97c6af84b5645e768ddb7f4b0527b9100deda
+  languageName: node
+  linkType: hard
+
+"turbo-stream@npm:2.4.0":
+  version: 2.4.0
+  resolution: "turbo-stream@npm:2.4.0"
+  checksum: 10/7079bbc82b58340f783144cd669cc7e598288523103a8d68bb8a4c6bb28c64eccb71d389b33aab07788d3a9030638b795709e15cb8486f722b1cdac59cb58afc
   languageName: node
   linkType: hard
 

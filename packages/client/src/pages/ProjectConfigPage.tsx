@@ -32,7 +32,7 @@ const ProjectConfigPageInner: React.FC = () => {
 		notification.success({
 			message: 'Project has been deleted',
 		});
-		navigate('/');
+		await navigate('/');
 	};
 
 	const handleDeleteClick = (): void => {

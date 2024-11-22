@@ -22,6 +22,8 @@ export class RunService {
 	}
 
 	async log(projectId: string, payload: InPayload) {
+		// eslint-disable-next-line no-console
 		console.log(payload);
+		await Promise.resolve();
 	}
 }

@@ -1,15 +1,19 @@
-import { useParams } from 'react-router-dom';
-import { NoStyleLink } from '../components/NoStyleLink';
+import { PageContainer, ProCard } from '@ant-design/pro-components';
+import { WithActiveProject } from '../components/WithActiveProject';
 
-export const ProjectPage = () => {
-	const { projectId } = useParams();
-
+const ProjectPageInner = () => {
 	// eslint-disable-next-line no-console
-	console.log('ProjectPage', projectId);
+	console.log('ProjectPage');
 
 	return (
-		<div>
-			ProjectPage<NoStyleLink to={`/project/${projectId}/config`}>Settings</NoStyleLink>
-		</div>
+		<PageContainer subTitle="Project">
+			<ProCard>xxxxx</ProCard>
+		</PageContainer>
 	);
 };
+
+export const ProjectPage = () => (
+	<WithActiveProject>
+		<ProjectPageInner />
+	</WithActiveProject>
+);

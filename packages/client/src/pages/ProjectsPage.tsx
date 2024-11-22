@@ -13,12 +13,6 @@ export const ProjectsPage: React.FC = () => {
 
 	return (
 		<PageContainer subTitle="List of Projects" extra={[<CreateProjectButton key="1" />]}>
-			{/* 			<ProCard
-				style={{
-					height: '200vh',
-					minHeight: 800,
-				}}
-			> */}
 			<div>
 				<Row gutter={[16, 24]}>
 					{getProjects.data?.map(project => (

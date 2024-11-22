@@ -20,7 +20,7 @@ export const CreateProjectButton: React.FC<Props> = props => {
 
 		setActiveProject(project.id, project.name);
 		refetch();
-		navigate(`/project/${project.id}`);
+		await navigate(`/project/${project.id}`);
 		notification.success({
 			message: 'Project has been created',
 		});
