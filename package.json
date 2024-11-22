@@ -18,11 +18,11 @@
     "typecheck": "yarn workspaces foreach -A run typecheck"
   },
   "devDependencies": {
-    "@swc/core": "^1.7.36",
+    "@swc/core": "^1.9.3",
     "@types/node": "^20.11.1",
     "@typescript-eslint/eslint-plugin": "7.18.0",
     "@typescript-eslint/parser": "7.18.0",
-    "@vitejs/plugin-react": "^4.3.2",
+    "@vitejs/plugin-react": "^4.3.3",
     "@vitest/coverage-v8": "^1.5.2",
     "eslint": "8.57.1",
     "eslint-config-airbnb": "19.0.4",
@@ -38,7 +38,6 @@
     "jsdom": "16.7.0",
     "prettier": "3.3.3",
     "prettier-plugin-organize-imports": "^3.2.4",
-    "reflect-metadata": "^0.2.2",
     "rimraf": "6.0.1",
     "tsconfig-paths": "^4.2.0",
     "typescript": "5.5.4",
