@@ -27,7 +27,10 @@
 				"dependencies",
 				"devDependencies"
 			],
-			"matchUpdateTypes": ["minor", "patch"],
+			"matchUpdateTypes": [
+				"minor",
+				"patch"
+			],
 			"automerge": true,
 			"autoApprove": true,
 			"enabled": true
@@ -45,7 +48,7 @@
 	"branchPrefix": "renovate",
 	"timezone": "Europe/Prague",
 	"extends": [
-		"config:base",
+		"config:recommended",
 		":dependencyDashboard",
 		"group:linters",
 		"group:test",
