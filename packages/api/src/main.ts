@@ -1,12 +1,13 @@
 /* eslint-disable no-console */
 
-import { ACTION, PAYLOAD } from '@chihuahua-dashboard/shared-api';
 import cors from '@fastify/cors';
 import { PrismaClient } from '@prisma/client';
 import Fastify from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { serializerCompiler, validatorCompiler } from 'fastify-type-provider-zod';
 import z from 'zod';
+import { IN_PAYLOAD } from './const';
+import { RunService } from './services/run.service';
 
 const prisma = new PrismaClient();
 
@@ -18,34 +19,18 @@ const start = async (): Promise<void> => {
 		maxParamLength: 5000,
 	});
 
-	// Add schema validator and serializer
 	fastify.setValidatorCompiler(validatorCompiler);
 	fastify.setSerializerCompiler(serializerCompiler);
 
-	await fastify.register(cors, {
-		// put your options here
-	});
+	await fastify.register(cors, {});
 
-	// Declare a route
-	fastify.get('/', (request, reply) => reply.send({ hello: 'api' }));
-
-	/*
-	fastify.post('/v1/playwright/step', async (request, reply) => {
-		console.log(request.body);
-
-		await reply.send({ message: 'ok' });
-	});
-	*/
+	const runService = new RunService(prisma);
 
 	fastify.withTypeProvider<ZodTypeProvider>().route({
 		method: 'POST',
 		url: '/v1/playwright/step',
-		// Define your schema
 		schema: {
-			body: z.object({
-				action: ACTION,
-				payload: PAYLOAD,
-			}),
+			body: IN_PAYLOAD,
 			response: {
 				200: z.object({
 					message: z.string(),
@@ -53,10 +38,24 @@ const start = async (): Promise<void> => {
 			},
 		},
 		handler: async (request, reply) => {
+			const token = request.headers.authorization;
+			const projectId = await runService.getProjectId(token);
+
+			if (projectId === 'EMPTY_TOKEN') {
+				await reply.status(401).send({ message: 'Unauthorized' });
+
+				return;
+			}
+
+			if (projectId === 'PROJECT_NOT_FOUND') {
+				await reply.status(401).send({ message: 'Project not found' });
+
+				return;
+			}
+
 			const { body } = request;
 
-			console.log(body.action);
-			console.log(body.payload);
+			await runService.log(projectId, body);
 
 			await reply.send({ message: 'ok' });
 		},
