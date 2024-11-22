@@ -2,12 +2,13 @@ import { PageContainer, ProCard, ProForm, ProFormDigit, type ProFormInstance } f
 import { css } from '@emotion/css';
 import { Button } from 'antd';
 import { useRef } from 'react';
+import { WithActiveProject } from '../components/WithActiveProject';
 import { useActiveProject } from '../hooks/useActiveProject';
 import { trpc } from '../utils/trpc';
 
 type FormButtonProps = { loading: boolean } | undefined;
 
-export const ProjectConfigPage: React.FC = () => {
+const ProjectConfigPageInner: React.FC = () => {
 	const updateConfig = trpc.projectConfig.updateConfig.useMutation();
 	const { activeProjectId } = useActiveProject();
 	const formRef = useRef<
@@ -109,3 +110,9 @@ export const ProjectConfigPage: React.FC = () => {
 		</PageContainer>
 	);
 };
+
+export const ProjectConfigPage = () => (
+	<WithActiveProject>
+		<ProjectConfigPageInner />
+	</WithActiveProject>
+);
