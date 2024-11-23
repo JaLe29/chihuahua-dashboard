@@ -5,9 +5,9 @@ import { useActiveProject } from '../hooks/useActiveProject';
 interface Props extends LinkProps {}
 
 export const NoStyleLink: React.FC<Props> = ({ children, to, ...props }) => {
-	const { activeProjectId } = useActiveProject();
+	const { project } = useActiveProject();
 
-	const toUrl = activeProjectId ? `${to}#${activeProjectId}` : to;
+	const toUrl = project ? `${to}#${project.id}` : to;
 
 	return (
 		<Link

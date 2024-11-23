@@ -5,6 +5,7 @@ import type { CreateFastifyContextOptions, FastifyTRPCPluginOptions } from '@trp
 import { fastifyTRPCPlugin } from '@trpc/server/adapters/fastify';
 import Fastify from 'fastify';
 import { ProjectService } from './services/project.service';
+import { RunService } from './services/run.service';
 import { createContext } from './trpc/context';
 import { appRouter, type AppRouter } from './trpc/router';
 
@@ -24,6 +25,7 @@ const start = async (): Promise<void> => {
 
 	const services = {
 		projectService: new ProjectService(prisma),
+		runService: new RunService(prisma),
 	};
 
 	await fastify.register(fastifyTRPCPlugin, {

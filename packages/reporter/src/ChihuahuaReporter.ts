@@ -1,4 +1,5 @@
-import type { Action, Payload } from '@chihuahua-dashboard/shared-api';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import type { OnBeginPayload, Payload } from '@chihuahua-dashboard/shared-api';
 import type {
 	FullConfig,
 	FullResult,
@@ -9,6 +10,7 @@ import type {
 	TestResult,
 	TestStep,
 } from '@playwright/test/reporter';
+import { randomUUID } from 'crypto';
 import type { ChihuahuaReporterOptions } from './types';
 
 // types shared
@@ -17,26 +19,22 @@ import type { ChihuahuaReporterOptions } from './types';
 
 /* eslint-disable no-console */
 export class ChihuahuaReporter implements Reporter {
-	private baseUrl: string;
-	private results: any[] = [];
-	private outputFile: string;
+	private readonly runId = randomUUID();
 
 	constructor(private readonly options: ChihuahuaReporterOptions) {
 		console.log('Reporter construchjjhdsadastorddsds dsdsadsadsa');
 	}
 
-	private async sendStep(action: Action, payload: Payload) {
+	private async sendStep(payload: Omit<Payload, 'runId'>) {
 		try {
 			const r = await fetch(`${this.options.api.apiUrl}/v1/playwright/step`, {
 				method: 'POST',
-				body: JSON.stringify({ action, payload: typeof payload === 'object' ? payload : { payload } }),
+				body: JSON.stringify({ ...payload, runId: this.runId }),
 				headers: {
 					'Content-Type': 'application/json',
+					Authorization: `${this.options.api.apiToken}`,
 				},
 			});
-
-			console.log(r);
-			console.log(JSON.stringify({ action, payload: typeof payload === 'object' ? payload : { payload } }));
 
 			if (!r.ok) {
 				console.error(r.statusText);
@@ -50,42 +48,43 @@ export class ChihuahuaReporter implements Reporter {
 	}
 
 	async onBegin(config: FullConfig, suite: Suite) {
-		await this.sendStep('onBegin', {
-			action: 'Starting the run',
-			tests: suite.allTests().length,
-		});
+		const tests = suite.allTests();
 
-		console.log(`Starting the run with ${suite.allTests().length} tests`);
-		console.log(`Base URL: ${this.baseUrl}`);
-	}
-
-	onTestBegin(test: TestCase) {
-		console.log(`Starting test: ${test.title}`);
-	}
-
-	onTestEnd(test: TestCase, result: TestResult) {
-		this.results.push({
+		console.log(tests);
+		const tetsPayload: OnBeginPayload = tests.map(test => ({
+			id: test.id,
 			title: test.title,
-			status: result.status,
-			duration: result.duration,
-			error: result.error?.message,
-			url: `${this.baseUrl}${test.location.file}`,
+		}));
+
+		console.log(tetsPayload);
+
+		await this.sendStep({
+			action: 'onBegin',
+			data: tetsPayload,
 		});
 	}
 
-	onStepBegin(test: TestCase, result: TestResult, step: TestStep) {
-		console.log(`Starting step: ${step.title}`);
+	async onTestBegin(test: TestCase) {
+		await Promise.resolve();
 	}
 
-	onStepEnd(test: TestCase, result: TestResult, step: TestStep) {
-		console.log(`Finished step: ${step.title}`);
+	async onTestEnd(test: TestCase, result: TestResult) {
+		await Promise.resolve();
 	}
 
-	onEnd(result: FullResult) {
-		console.log(`Finished the run: ${result.status}`);
+	async onStepBegin(test: TestCase, result: TestResult, step: TestStep) {
+		await Promise.resolve();
 	}
 
-	onError(error: TestError) {
-		console.log(`Error occurred: ${error.message}`);
+	async onStepEnd(test: TestCase, result: TestResult, step: TestStep) {
+		await Promise.resolve();
+	}
+
+	async onEnd(result: FullResult) {
+		await Promise.resolve();
+	}
+
+	async onError(error: TestError) {
+		await Promise.resolve();
 	}
 }

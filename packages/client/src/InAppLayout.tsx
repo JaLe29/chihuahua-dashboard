@@ -7,6 +7,7 @@ import React, { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { NoStyleLink } from './components/NoStyleLink';
 import { useActiveProject } from './hooks/useActiveProject';
+import { useProjects } from './hooks/useProjects';
 
 const SETTINGS: Partial<ProSettings> = {
 	fixSiderbar: true,
@@ -16,7 +17,7 @@ const SETTINGS: Partial<ProSettings> = {
 };
 
 const SearchInput = ({ isMobile }: { isMobile: boolean }) => {
-	const { activeProjectName, initialized } = useActiveProject();
+	const { project, initialized } = useActiveProject();
 
 	return (
 		<div
@@ -28,12 +29,13 @@ const SearchInput = ({ isMobile }: { isMobile: boolean }) => {
 				marginInlineEnd: isMobile ? undefined : 24,
 			}}
 		>
-			{!initialized ? 'Loading' : activeProjectName || 'No active project'}
+			{!initialized ? 'Loading' : project?.name || 'No active project'}
 		</div>
 	);
 };
 
 export const InAppLayout: React.FC = () => {
+	useProjects();
 	const [pathname, setPathname] = useState('/list/sub-page/sub-sub-page1');
 
 	if (typeof document === 'undefined') {

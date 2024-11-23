@@ -8,4 +8,9 @@ export interface ProjectConfig {
 	 * Retention period for test results in days
 	 */
 	retention: number;
+
+	/**
+	 * Date format for all dates in the project
+	 */
+	dateFormat: string;
 }

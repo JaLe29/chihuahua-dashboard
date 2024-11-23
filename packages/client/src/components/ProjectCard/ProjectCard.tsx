@@ -2,6 +2,7 @@ import { SunFilled, SunOutlined } from '@ant-design/icons';
 import { ProCard } from '@ant-design/pro-components';
 import { css } from '@emotion/css';
 import { Button, theme } from 'antd';
+import { useState } from 'react';
 import { useActiveProject } from '../../hooks/useActiveProject';
 import { type RouterOutput } from '../../utils/trpc';
 
@@ -10,10 +11,11 @@ interface Props {
 }
 
 export const ProjectCard: React.FC<Props> = ({ project }) => {
+	const [loading, setLoading] = useState(false);
 	const { token } = theme.useToken();
-	const { activeProjectId, setActiveProject } = useActiveProject();
+	const { project: activeProject, setProject } = useActiveProject();
 
-	const isActive = project.id === activeProjectId;
+	const isActive = project.id === activeProject?.id;
 
 	return (
 		<ProCard
@@ -27,7 +29,16 @@ export const ProjectCard: React.FC<Props> = ({ project }) => {
 					shape="circle"
 					type={isActive ? 'primary' : 'default'}
 					icon={isActive ? <SunFilled /> : <SunOutlined />}
-					onClick={() => setActiveProject(project.id, project.name)}
+					loading={loading}
+					onClick={async () => {
+						if (isActive) {
+							return;
+						}
+
+						setLoading(true);
+						await setProject(project.id);
+						setLoading(false);
+					}}
 				/>
 			}
 		>

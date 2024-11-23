@@ -12,22 +12,23 @@ interface Response {
 }
 
 export const useProjects = (): Response => {
-	const { activeProjectId, setActiveProject, setInitialized } = useActiveProject();
+	const { setProject, project, setInitialized } = useActiveProject();
 	const { hash } = useUrlHash();
 	const getProjectNames = trpc.project.getProjectNames.useQuery();
 
 	useEffect(() => {
-		if (!activeProjectId && getProjectNames.data) {
-			const project = getProjectNames.data.find(p => p.id === hash);
+		if (!project && getProjectNames.data) {
+			const targetProject = getProjectNames.data.find(p => p.id === hash);
 
-			if (project) {
-				setActiveProject(project.id, project.name, true);
+			if (targetProject) {
+				// eslint-disable-next-line no-console
+				setProject(targetProject.id, true).catch(console.error);
 			} else {
 				setInitialized(true);
 			}
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [getProjectNames.data, activeProjectId]);
+	}, [getProjectNames.data, project]);
 
 	return { projects: getProjectNames.data, refetch: getProjectNames.refetch };
 };

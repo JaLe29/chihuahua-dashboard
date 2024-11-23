@@ -11,15 +11,15 @@ type FormButtonProps = { loading: boolean } | undefined;
 const ProjectSettingsPageInner: React.FC = () => {
 	const updateProjectSettings = trpc.project.updateProjectSettings.useMutation();
 	const regenerateProjectToken = trpc.project.regenerateProjectToken.useMutation();
-	const { activeProjectId } = useActiveProject();
-	const getProjectToken = trpc.project.getProjectToken.useQuery({ id: activeProjectId ?? 'TODO' });
+	const { project } = useActiveProject();
+	const getProjectToken = trpc.project.getProjectToken.useQuery({ id: project?.id ?? 'TODO' });
 	const formRef = useRef<
 		ProFormInstance<{
 			maxTimeout: number;
 			retention: number;
 		}>
 	>();
-	const getProjectSettings = trpc.project.getProjectSettings.useQuery({ id: activeProjectId ?? 'TODO' });
+	const getProjectSettings = trpc.project.getProjectSettings.useQuery({ id: project?.id ?? 'TODO' });
 
 	const handleRegenerateTokenClick = (): void => {
 		Modal.confirm({
@@ -29,7 +29,7 @@ const ProjectSettingsPageInner: React.FC = () => {
 			okType: 'danger',
 			cancelText: 'Cancel',
 			onOk: async () => {
-				await regenerateProjectToken.mutateAsync({ id: activeProjectId ?? 'TODO' });
+				await regenerateProjectToken.mutateAsync({ id: project?.id ?? 'TODO' });
 				await getProjectToken.refetch();
 				notification.success({
 					message: 'Project token has been regenerated',
@@ -56,7 +56,7 @@ const ProjectSettingsPageInner: React.FC = () => {
 					description?: string;
 				}>
 					onFinish={async values => {
-						await updateProjectSettings.mutateAsync({ id: activeProjectId ?? 'TODO', data: values });
+						await updateProjectSettings.mutateAsync({ id: project?.id ?? 'TODO', data: values });
 						notification.success({
 							message: 'Project settings have been updated',
 						});
@@ -131,6 +131,10 @@ const ProjectSettingsPageInner: React.FC = () => {
 							key: '1',
 							children: (
 								<>
+									<p>
+										This api token is used for authentication when sending requests to the server
+										from reporter
+									</p>
 									<p
 										className={css`
 											padding: 8px;

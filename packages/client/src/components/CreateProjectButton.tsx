@@ -10,7 +10,7 @@ type Props = ButtonProps & {
 };
 
 export const CreateProjectButton: React.FC<Props> = props => {
-	const { setActiveProject } = useActiveProject();
+	const { setProject } = useActiveProject();
 	const createProject = trpc.project.createProject.useMutation();
 	const { refetch } = useProjects();
 	const navigate = useNavigate();
@@ -18,7 +18,7 @@ export const CreateProjectButton: React.FC<Props> = props => {
 	const handleCreateProject = async (): Promise<void> => {
 		const project = await createProject.mutateAsync();
 
-		setActiveProject(project.id, project.name);
+		await setProject(project.id);
 		refetch();
 		await navigate(`/project/${project.id}`);
 		notification.success({

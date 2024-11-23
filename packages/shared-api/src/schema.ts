@@ -2,7 +2,6 @@ import { z } from 'zod';
 
 export const ACTION = z.enum([
 	'onBegin',
-	'onEnd',
 	'onStep',
 	'onError',
 	'onTestBegin',
@@ -14,6 +13,16 @@ export const ACTION = z.enum([
 
 export type Action = z.infer<typeof ACTION>;
 
-export const PAYLOAD = z.any();
+//
+
+export const OnBeginPayload = z.array(z.object({ id: z.string(), title: z.string() }));
+
+export type OnBeginPayload = z.infer<typeof OnBeginPayload>;
+
+//
+export const PAYLOAD = z.union([
+	z.object({ action: z.literal('onBegin'), runId: z.string(), data: OnBeginPayload }),
+	z.object({ action: z.literal('onEnd'), runId: z.string(), data: OnBeginPayload }),
+]);
 
 export type Payload = z.infer<typeof PAYLOAD>;

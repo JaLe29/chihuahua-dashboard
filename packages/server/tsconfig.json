@@ -8,6 +8,9 @@
 	"references": [
 		{
 			"path": "../shared/tsconfig.build.json"
+		},
+		{
+			"path": "../shared-api/tsconfig.build.json"
 		}
 	]
 }

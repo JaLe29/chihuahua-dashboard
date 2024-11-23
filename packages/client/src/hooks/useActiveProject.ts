@@ -1,46 +1,51 @@
 import type { StoreApi, UseBoundStore } from 'zustand';
 import { create } from 'zustand';
+import { trcpProxyClient, type RouterOutput } from '../utils/trpc';
 import { useUrlHash } from './useUrlHash';
 
+type Project = RouterOutput['project']['getProject'];
+
 interface Props {
-	activeProjectId?: string;
-	activeProjectName?: string;
-	setActiveProject: (projectId: string, activeProjectName: string, initialized?: boolean) => void;
 	clearActiveProject: () => void;
 	// Whether the active project has been initialized
 	initialized: boolean;
 	setInitialized: (initialized: boolean) => void;
+	//
+	project: Project | undefined;
+	setProject: (project: Project) => void;
 }
 
 export const useDeviceStore: UseBoundStore<StoreApi<Props>> = create(set => ({
-	activeProject: undefined,
-	activeProjectName: undefined,
-	setActiveProject: (projectId: string, activeProjectName: string, initialized?: boolean) => {
-		if (typeof initialized === 'boolean') {
-			set({ activeProjectId: projectId, activeProjectName, initialized });
-		}
-
-		set({ activeProjectId: projectId, activeProjectName });
-	},
-	clearActiveProject: () => set({ activeProjectId: undefined, activeProjectName: undefined }),
+	clearActiveProject: () => set({ project: undefined }),
+	//
 	initialized: false,
 	setInitialized: (initialized: boolean) => set({ initialized }),
+	//
+	project: undefined,
+	setProject: (project: Project) => set({ project }),
 }));
 
-export const useActiveProject = (): Props => {
+export const useActiveProject = (): Omit<Props, 'setProject'> & {
+	setProject: (projectId: string, initializedIn?: boolean) => Promise<void>;
+} => {
 	const { setHash } = useUrlHash();
-	const { activeProjectId, activeProjectName, setActiveProject, clearActiveProject, initialized, setInitialized } =
-		useDeviceStore();
+	const { project, setProject, clearActiveProject, initialized, setInitialized } = useDeviceStore();
 
-	const setActiveProjectFn = (projectIdIn: string, activeProjectNameIn: string, initializedIn?: boolean) => {
-		setHash(projectIdIn);
-		setActiveProject(projectIdIn, activeProjectNameIn, initializedIn);
+	const setProjectInner = async (projectId: string, initializedIn?: boolean) => {
+		setHash(projectId);
+
+		const projectResponse = await trcpProxyClient.project.getProject.query({ id: projectId });
+
+		setProject(projectResponse);
+
+		if (typeof initializedIn === 'boolean') {
+			setInitialized(initializedIn);
+		}
 	};
 
 	return {
-		activeProjectId,
-		activeProjectName,
-		setActiveProject: setActiveProjectFn,
+		project,
+		setProject: setProjectInner,
 		initialized,
 		setInitialized,
 		clearActiveProject,

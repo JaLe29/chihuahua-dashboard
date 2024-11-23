@@ -1,4 +1,3 @@
-export const hello = (): string => 'Hello, world #!';
-
+export * from './const';
 export * from './schema';
 export * from './types';

@@ -14,5 +14,6 @@ export const PROJECT_CONFIG_SCHEMA: z.ZodType<ProjectConfig> = z
 	.object({
 		maxTimeout: z.number(),
 		retention: z.number(),
+		dateFormat: z.string(),
 	})
 	.strict();

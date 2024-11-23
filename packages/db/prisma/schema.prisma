@@ -12,6 +12,17 @@ datasource db {
 
 // -----------------------
 
+enum RunAction {
+	onBegin
+	onStep
+	onError
+	onTestBegin
+	onEnd
+	onStepEnd
+	onStepBegin
+	onTestEnd
+}
+
 model Project {
     // -----------------------
     id        String   @id @default(auto()) @map("_id") @db.ObjectId
@@ -33,6 +44,9 @@ model Run {
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
     // -----------------------
+	action    RunAction
+	data      Json
+	runId     String
     projectId String   @db.ObjectId
     project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
 }

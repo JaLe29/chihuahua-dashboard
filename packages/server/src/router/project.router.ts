@@ -11,7 +11,7 @@ export const getProjectRouter = (router: Router, procedure: Procedure) =>
 		getProjects: procedure.query(({ ctx }) => ctx.prisma.project.findMany()),
 		getProject: procedure
 			.input(z.object({ id: ID }))
-			.query(({ ctx, input }) => ctx.prisma.project.findUniqueOrThrow({ where: { id: input.id } })),
+			.query(({ ctx, input }) => ctx.services.projectService.getProject(input.id)),
 		getProjectSettings: procedure.input(z.object({ id: ID })).query(({ ctx, input }) =>
 			ctx.prisma.project.findUniqueOrThrow({
 				where: { id: input.id },

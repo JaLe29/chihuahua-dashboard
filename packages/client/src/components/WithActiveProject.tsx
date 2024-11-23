@@ -8,13 +8,13 @@ interface Props {
 }
 
 export const WithActiveProject: React.FC<Props> = ({ children }) => {
-	const { activeProjectId, initialized } = useActiveProject();
+	const { project, initialized } = useActiveProject();
 
 	if (!initialized) {
 		return <ProCard loading />;
 	}
 
-	if (!activeProjectId) {
+	if (!project) {
 		return (
 			<ProCard>
 				<Result

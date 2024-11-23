@@ -1,4 +1,12 @@
-import { PageContainer, ProCard, ProForm, ProFormDigit, type ProFormInstance } from '@ant-design/pro-components';
+import {
+	PageContainer,
+	ProCard,
+	ProForm,
+	ProFormDigit,
+	ProFormSelect,
+	type ProFormInstance,
+} from '@ant-design/pro-components';
+import { DATE_FORMATS } from '@chihuahua-dashboard/shared';
 import { css } from '@emotion/css';
 import { Button, Collapse, Divider, Modal, notification } from 'antd';
 import { useRef } from 'react';
@@ -13,20 +21,21 @@ type FormButtonProps = { loading: boolean } | undefined;
 const ProjectConfigPageInner: React.FC = () => {
 	const navigate = useNavigate();
 	const updateConfig = trpc.projectConfig.updateConfig.useMutation();
-	const { activeProjectId, clearActiveProject } = useActiveProject();
+	const { project, clearActiveProject } = useActiveProject();
 	const { refetch } = useProjects();
 
 	const formRef = useRef<
 		ProFormInstance<{
 			maxTimeout: number;
 			retention: number;
+			dateFormat: string;
 		}>
 	>();
 
 	const deleteProject = trpc.project.deleteProject.useMutation();
 
 	const handleDeleteProject = async (): Promise<void> => {
-		await deleteProject.mutateAsync({ id: activeProjectId! });
+		await deleteProject.mutateAsync({ id: project?.id ?? 'TODO' });
 		refetch();
 		clearActiveProject();
 		notification.success({
@@ -48,7 +57,7 @@ const ProjectConfigPageInner: React.FC = () => {
 		});
 	};
 
-	const getConfig = trpc.projectConfig.getConfig.useQuery({ id: activeProjectId ?? 'TODO' });
+	const getConfig = trpc.projectConfig.getConfig.useQuery({ id: project?.id ?? 'TODO' });
 
 	if (getConfig.isLoading) {
 		return <div>Loading...</div>;
@@ -66,9 +75,10 @@ const ProjectConfigPageInner: React.FC = () => {
 				<ProForm<{
 					maxTimeout: number;
 					retention: number;
+					dateFormat: string;
 				}>
 					onFinish={async values => {
-						await updateConfig.mutateAsync({ id: activeProjectId ?? 'TODO', data: values });
+						await updateConfig.mutateAsync({ id: project?.id ?? 'TODO', data: values });
 						notification.success({
 							message: 'Project configuration has been updated',
 						});
@@ -141,6 +151,26 @@ const ProjectConfigPageInner: React.FC = () => {
 							]}
 						/>
 					</ProForm.Group>
+					<ProForm.Group>
+						<ProFormSelect
+							name="dateFormat"
+							label="Date format"
+							width="lg"
+							required
+							options={DATE_FORMATS.map(d => ({
+								label: d.label,
+								value: d.value,
+							}))}
+							tooltip="Date format for all dates in the project"
+							placeholder="Date format"
+							rules={[
+								{
+									required: true,
+									message: 'Please specify date format',
+								},
+							]}
+						/>
+					</ProForm.Group>
 				</ProForm>
 			</ProCard>
 			<Divider />
@@ -151,25 +181,11 @@ const ProjectConfigPageInner: React.FC = () => {
 							label: 'Danger zone',
 							key: '1',
 							children: (
-								<>
-									<p>
-										<b>
-											This api token is used for authentication when sending requests to the
-											server from reporter
-										</b>
-									</p>
-									<p
-										className={css`
-											display: flex;
-											justify-content: flex-end;
-											gap: 8px;
-										`}
-									>
-										<Button danger onClick={handleDeleteClick}>
-											Delete project
-										</Button>
-									</p>
-								</>
+								<p>
+									<Button danger onClick={handleDeleteClick}>
+										Delete project
+									</Button>
+								</p>
 							),
 						},
 					]}

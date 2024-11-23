@@ -1,6 +1,6 @@
 import test, { expect } from '@playwright/test';
 
-test('demo 1-1', async ({ page }) => {
+test('demo 2-1', async ({ page }) => {
 	await page.goto('https://demo.playwright.dev/todomvc/#/');
 
 	await expect(page.locator('body')).toContainText(
@@ -8,7 +8,7 @@ test('demo 1-1', async ({ page }) => {
 	);
 });
 
-test('demo 2-1', async ({ page }) => {
+test('demo 2-2', async ({ page }) => {
 	await page.goto('https://demo.playwright.dev/todomvc/#/');
 
 	await expect(page.locator('body')).toContainText(

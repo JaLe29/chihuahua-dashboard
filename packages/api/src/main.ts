@@ -1,12 +1,12 @@
 /* eslint-disable no-console */
 
+import { PAYLOAD } from '@chihuahua-dashboard/shared-api';
 import cors from '@fastify/cors';
 import { PrismaClient } from '@prisma/client';
 import Fastify from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { serializerCompiler, validatorCompiler } from 'fastify-type-provider-zod';
 import z from 'zod';
-import { IN_PAYLOAD } from './const';
 import { RunService } from './services/run.service';
 
 const prisma = new PrismaClient();
@@ -30,7 +30,7 @@ const start = async (): Promise<void> => {
 		method: 'POST',
 		url: '/v1/playwright/step',
 		schema: {
-			body: IN_PAYLOAD,
+			body: PAYLOAD,
 			response: {
 				200: z.object({
 					message: z.string(),
@@ -40,6 +40,8 @@ const start = async (): Promise<void> => {
 		handler: async (request, reply) => {
 			const token = request.headers.authorization;
 			const projectId = await runService.getProjectId(token);
+
+			console.log({ token });
 
 			if (projectId === 'EMPTY_TOKEN') {
 				await reply.status(401).send({ message: 'Unauthorized' });
@@ -61,7 +63,7 @@ const start = async (): Promise<void> => {
 		},
 	});
 
-	await fastify.listen({ port: 4000 });
+	await fastify.listen({ port: 4001 });
 	console.log('Server running on port 4000');
 };
 

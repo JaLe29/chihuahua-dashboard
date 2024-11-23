@@ -867,6 +867,7 @@ __metadata:
     "@types/react-router-dom": "npm:^5.3.3"
     "@vitejs/plugin-react": "npm:^4.3.3"
     antd: "npm:^5.22.2"
+    dayjs: "npm:^1.11.11"
     eslint: "npm:8.57.1"
     react: "npm:18.3.1"
     react-dom: "npm:18.3.1"
@@ -927,6 +928,7 @@ __metadata:
   resolution: "@chihuahua-dashboard/server@workspace:packages/server"
   dependencies:
     "@chihuahua-dashboard/shared": "workspace:*"
+    "@chihuahua-dashboard/shared-api": "workspace:*"
     "@fastify/cors": "npm:^10.0.1"
     "@prisma/client": "npm:5.22.0"
     "@trpc/server": "npm:^10.45.2"

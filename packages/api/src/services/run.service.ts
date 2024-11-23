@@ -1,5 +1,5 @@
+import type { Payload } from '@chihuahua-dashboard/shared-api';
 import type { PrismaClient } from '@prisma/client';
-import type { InPayload } from '../const';
 
 export class RunService {
 	constructor(private readonly prisma: PrismaClient) {}
@@ -21,9 +21,14 @@ export class RunService {
 		return project.id;
 	}
 
-	async log(projectId: string, payload: InPayload) {
-		// eslint-disable-next-line no-console
-		console.log(payload);
-		await Promise.resolve();
+	async log(projectId: string, payload: Payload) {
+		await this.prisma.run.create({
+			data: {
+				projectId,
+				runId: payload.runId,
+				action: payload.action,
+				data: payload.data,
+			},
+		});
 	}
 }
