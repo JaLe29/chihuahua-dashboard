@@ -1,61 +1,6 @@
 {
 	"$schema": "https://docs.renovatebot.com/renovate-schema.json",
-	"packageRules": [
-		{
-			"matchPackageNames": [
-				"typescript",
-				"yarn"
-			],
-			"enabled": false
-		},
-		{
-			"matchDepTypes": [
-				"dependencies",
-				"devDependencies"
-			],
-			"matchUpdateTypes": [
-				"major"
-			],
-			"enabled": false
-		},
-		{
-			"groupName": "TS dependencies",
-			"matchFileNames": [
-				"**/package.json"
-			],
-			"matchDepTypes": [
-				"dependencies",
-				"devDependencies"
-			],
-			"matchUpdateTypes": [
-				"minor",
-				"patch"
-			],
-			"automerge": true,
-			"autoApprove": true,
-			"enabled": true
-		}
-	],
-	"npm": {
-		"minimumReleaseAge": "3 days"
-	},
-	"enabledManagers": [
-		"npm"
-	],
-	"baseBranches": [
-		"main"
-	],
-	"branchPrefix": "renovate",
-	"timezone": "Europe/Prague",
 	"extends": [
-		"config:recommended",
-		":dependencyDashboard",
-		"group:linters",
-		"group:test",
-		"group:monorepos",
-		"group:recommended",
-		":preserveSemverRanges",
-		":rebaseStalePrs",
-		":enableVulnerabilityAlertsWithLabel('security')"
+		"config:recommended"
 	]
 }
