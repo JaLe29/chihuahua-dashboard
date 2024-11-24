@@ -27,9 +27,10 @@ export class ChihuahuaReporter implements Reporter {
 
 	private async sendStep(payload: Omit<Payload, 'runId'>) {
 		try {
+			const stringPayload = JSON.stringify({ ...payload, runId: this.runId });
 			const r = await fetch(`${this.options.api.apiUrl}/v1/playwright/step`, {
 				method: 'POST',
-				body: JSON.stringify({ ...payload, runId: this.runId }),
+				body: stringPayload,
 				headers: {
 					'Content-Type': 'application/json',
 					Authorization: `${this.options.api.apiToken}`,
@@ -39,6 +40,7 @@ export class ChihuahuaReporter implements Reporter {
 			if (!r.ok) {
 				console.error(r.statusText);
 				console.error(await r.text());
+				console.log(stringPayload);
 				process.exit(1);
 			}
 		} catch (error) {
@@ -81,7 +83,10 @@ export class ChihuahuaReporter implements Reporter {
 	}
 
 	async onEnd(result: FullResult) {
-		await Promise.resolve();
+		await this.sendStep({
+			action: 'onEnd',
+			data: { status: result.status, startTime: result.startTime, duration: result.duration },
+		});
 	}
 
 	async onError(error: TestError) {

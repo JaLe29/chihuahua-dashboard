@@ -8,4 +8,7 @@ export const getRunRouter = (router: Router, procedure: Procedure) =>
 		getRuns: procedure
 			.input(z.object({ id: ID }))
 			.query(({ ctx, input }) => ctx.services.runService.getRuns(input.id)),
+		getRunsLengthHistory: procedure
+			.input(z.object({ id: ID }))
+			.query(({ ctx, input }) => ctx.services.runService.getRunsLengthHistory(input.id)),
 	});
