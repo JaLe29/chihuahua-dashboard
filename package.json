@@ -51,5 +51,5 @@
     "url": "git@github.com:JaLe29/chihuahua-dashboard.git"
   },
   "license": "ISC",
-  "packageManager": "yarn@4.5.2"
+  "packageManager": "yarn@4.5.3"
 }
