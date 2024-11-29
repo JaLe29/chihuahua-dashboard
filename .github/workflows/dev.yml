@@ -53,7 +53,6 @@ jobs:
     - name: Run ${{ matrix.task }} ${{ matrix.command }}
       run: yarn workspace @chihuahua-dashboard/${{ matrix.task }} ${{ matrix.command }}
   test-build:
-    needs: setup
     runs-on: ubuntu-latest
     strategy:
       matrix:
