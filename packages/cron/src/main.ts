@@ -29,7 +29,7 @@ const start = async (): Promise<void> => {
 	await Promise.all([cronService.tickDeadRuns()]);
 
 	await fastify.listen({ port: 4001 });
-	console.log('Server running on port 4000');
+	console.log('Server running on port 4000x');
 };
 
 start().catch(e => {
