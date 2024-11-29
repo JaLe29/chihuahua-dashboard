@@ -1200,6 +1200,25 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@chihuahua-dashboard/cron@workspace:packages/cron":
+  version: 0.0.0-use.local
+  resolution: "@chihuahua-dashboard/cron@workspace:packages/cron"
+  dependencies:
+    "@chihuahua-dashboard/shared": "workspace:*"
+    "@fastify/cors": "npm:^10.0.1"
+    "@prisma/client": "npm:5.22.0"
+    "@types/node": "npm:^20.11.1"
+    eslint: "npm:8.57.1"
+    fastify: "npm:^5.1.0"
+    prisma: "npm:^5.22.0"
+    rimraf: "npm:6.0.1"
+    tsconfig-paths: "npm:^4.2.0"
+    tsx: "npm:^4.19.2"
+    typescript: "npm:5.6.3"
+    vitest: "npm:1.6.0"
+  languageName: unknown
+  linkType: soft
+
 "@chihuahua-dashboard/db@workspace:packages/db":
   version: 0.0.0-use.local
   resolution: "@chihuahua-dashboard/db@workspace:packages/db"

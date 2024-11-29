@@ -1,5 +1,5 @@
 import type { Payload } from '@chihuahua-dashboard/shared-api';
-import type { PrismaClient } from '@prisma/client';
+import { RunAction, RunStatus, type PrismaClient } from '@prisma/client';
 
 export class RunService {
 	constructor(private readonly prisma: PrismaClient) {}
@@ -22,13 +22,26 @@ export class RunService {
 	}
 
 	async log(projectId: string, payload: Payload) {
-		await this.prisma.run.create({
-			data: {
-				projectId,
-				runId: payload.runId,
-				action: payload.action,
-				data: payload.data,
-			},
-		});
+		if (payload.action === RunAction.onBegin) {
+			await this.prisma.run.create({
+				data: {
+					projectId,
+					runId: payload.runId,
+					status: RunStatus.running,
+				},
+			});
+		} else {
+			const run = await this.prisma.run.findFirstOrThrow({
+				where: { runId: payload.runId },
+			});
+
+			await this.prisma.runLog.create({
+				data: {
+					runId: run.id,
+					action: payload.action,
+					data: payload.data,
+				},
+			});
+		}
 	}
 }

@@ -13,42 +13,62 @@ datasource db {
 // -----------------------
 
 enum RunAction {
-	onBegin
-	onStep
-	onError
-	onTestBegin
-	onEnd
-	onStepEnd
-	onStepBegin
-	onTestEnd
+    onBegin
+    onStep
+    onError
+    onTestBegin
+    onEnd
+    onStepEnd
+    onStepBegin
+    onTestEnd
+}
+
+enum RunStatus {
+    running
+    finished
+    timeout
 }
 
 model Project {
     // -----------------------
-    id        String   @id @default(auto()) @map("_id") @db.ObjectId
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+    id          String   @id @default(auto()) @map("_id") @db.ObjectId
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
     // -----------------------
-    name      String
-	description String?
+    name        String
+    description String?
 
-    token     String
+    token String
 
     runs   Run[]
     config ProjectConfig?
 }
 
+model RunLog {
+    // -----------------------
+    id        String    @id @default(auto()) @map("_id") @db.ObjectId
+    createdAt DateTime  @default(now())
+    updatedAt DateTime  @updatedAt
+    // -----------------------
+    action    RunAction
+    data      Json
+
+    runId String @db.ObjectId
+    run   Run    @relation(fields: [runId], references: [id], onDelete: Cascade)
+}
+
 model Run {
     // -----------------------
-    id        String   @id @default(auto()) @map("_id") @db.ObjectId
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+    id        String    @id @default(auto()) @map("_id") @db.ObjectId
+    createdAt DateTime  @default(now())
+    updatedAt DateTime  @updatedAt
     // -----------------------
-	action    RunAction
-	data      Json
-	runId     String
-    projectId String   @db.ObjectId
-    project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+    status    RunStatus
+    runId     String
+    projectId String    @db.ObjectId
+    project   Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+    runLogs RunLog[]
 }
 
 model ProjectConfig {

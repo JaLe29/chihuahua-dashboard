@@ -28,12 +28,12 @@ jobs:
           node_modules
           */*/node_modules
         key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
-  check:
+  test:
     needs: setup
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        task: ['api', 'reporter', 'server', 'shared', 'shared-api', 'client', 'playwright-demo']
+        task: ['api', 'reporter', 'server', 'shared', 'shared-api', 'client', 'playwright-demo', 'cron']
         command: ['lint', 'typecheck']
     steps:
     - uses: actions/checkout@v3
@@ -52,3 +52,15 @@ jobs:
           ${{ runner.os }}-modules-
     - name: Run ${{ matrix.task }} ${{ matrix.command }}
       run: yarn workspace @chihuahua-dashboard/${{ matrix.task }} ${{ matrix.command }}
+  test-build:
+    needs: setup
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        task: ['cron']
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+    - name: Run docker build ${{ matrix.task }}
+      run: docker build -f ./packages/${{ matrix.task }}/Dockerfile .
