@@ -16,7 +16,7 @@
 		"@playwright/test": "^1.49.0"
 	},
 	"devDependencies": {
-		"@types/node": "^20.11.1",
+		"@types/node": "^22.0.0",
 		"eslint": "8.57.1",
 		"rimraf": "^5.0.5"
 	}

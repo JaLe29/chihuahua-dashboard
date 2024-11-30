@@ -17,7 +17,7 @@
     "typecheck": "tsc --build tsconfig.ci.json"
   },
   "devDependencies": {
-    "@types/node": "^20.11.1",
+    "@types/node": "^22.0.0",
     "eslint": "8.57.1",
     "rimraf": "6.0.1",
     "tsx": "^4.19.2",
