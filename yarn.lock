@@ -115,6 +115,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@ant-design/icons@npm:^5.5.2":
+  version: 5.5.2
+  resolution: "@ant-design/icons@npm:5.5.2"
+  dependencies:
+    "@ant-design/colors": "npm:^7.0.0"
+    "@ant-design/icons-svg": "npm:^4.4.0"
+    "@babel/runtime": "npm:^7.24.8"
+    classnames: "npm:^2.2.6"
+    rc-util: "npm:^5.31.1"
+  peerDependencies:
+    react: ">=16.0.0"
+    react-dom: ">=16.0.0"
+  checksum: 10/07837e7772fc412b128a55733001ce12076e33ab094729153063b2e7a9c7050e02e0499e750a5a150718ffe4f8fa0f6f988482fe56527f443b4dc61455bdcf2e
+  languageName: node
+  linkType: hard
+
 "@ant-design/plots@npm:^2.3.2":
   version: 2.3.2
   resolution: "@ant-design/plots@npm:2.3.2"
@@ -1167,7 +1183,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@chihuahua-dashboard/client@workspace:packages/client"
   dependencies:
-    "@ant-design/icons": "npm:^5.5.1"
+    "@ant-design/icons": "npm:^5.5.2"
     "@ant-design/plots": "npm:^2.3.2"
     "@ant-design/pro-components": "npm:^2.8.2"
     "@chihuahua-dashboard/shared-server": "workspace:*"

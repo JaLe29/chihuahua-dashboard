@@ -2,23 +2,6 @@
 	"$schema": "https://docs.renovatebot.com/renovate-schema.json",
 	"packageRules": [
 		{
-			"matchPackageNames": [
-				"typescript",
-				"yarn"
-			],
-			"enabled": false
-		},
-		{
-			"matchDepTypes": [
-				"dependencies",
-				"devDependencies"
-			],
-			"matchUpdateTypes": [
-				"major"
-			],
-			"enabled": false
-		},
-		{
 			"groupName": "TS dependencies",
 			"matchFileNames": [
 				"**/package.json"

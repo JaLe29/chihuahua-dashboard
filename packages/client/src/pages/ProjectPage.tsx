@@ -1,6 +1,7 @@
 import type { ProColumns } from '@ant-design/pro-components';
 import { PageContainer, ProCard, ProTable } from '@ant-design/pro-components';
 import { DateWithFormat } from '../components/DateWithFormat';
+import { NoStyleLink } from '../components/NoStyleLink';
 import { RunsLengthHistoryChart } from '../components/RunsLengthHistoryChart';
 import { WithActiveProject } from '../components/WithActiveProject';
 import { useActiveProject } from '../hooks/useActiveProject';
@@ -24,11 +25,16 @@ const COLUMNS: ProColumns<ProjectRow>[] = [
 		title: 'status',
 		render: (_, record) => record.status,
 	},
+	{
+		dataIndex: 'detail',
+		title: 'detail',
+		render: (_, record) => <NoStyleLink to={`/run/${record.id}`}>detail</NoStyleLink>,
+	},
 ];
 
 const ProjectPageInner = () => {
 	const { project } = useActiveProject();
-	const getProjectRuns = trpc.run.getRuns.useQuery({ id: project?.id ?? 'TODO' });
+	const getProjectRuns = trpc.run.getRuns.useQuery({ projectId: project?.id ?? 'TODO' });
 
 	return (
 		<PageContainer subTitle="Project">

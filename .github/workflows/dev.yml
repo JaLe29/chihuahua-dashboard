@@ -33,7 +33,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        task: ['api', 'reporter', 'server', 'shared', 'shared-api', 'client', 'playwright-demo', 'cron']
+        task: ['api', 'reporter', 'server', 'shared-server', 'shared-api', 'shared-backend', 'client', 'playwright-demo', 'cron']
         command: ['lint', 'typecheck']
     steps:
     - uses: actions/checkout@v3

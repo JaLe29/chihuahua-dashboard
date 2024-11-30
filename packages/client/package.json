@@ -19,7 +19,7 @@
     "typecheck": "tsc --build tsconfig.ci.json"
   },
   "dependencies": {
-    "@ant-design/icons": "^5.5.1",
+    "@ant-design/icons": "^5.5.2",
     "@ant-design/plots": "^2.3.2",
     "@ant-design/pro-components": "^2.8.2",
     "@chihuahua-dashboard/shared-server": "workspace:*",

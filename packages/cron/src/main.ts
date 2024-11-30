@@ -33,12 +33,12 @@ const start = async (): Promise<void> => {
 
 	setInterval(
 		async () => {
-			await cronService.tickDeadRuns();
+			await cronService.tick();
 		},
 		1000 * 60 * 1,
 	); // ! minutes
 
-	await Promise.all([cronService.tickDeadRuns()]);
+	await Promise.all([cronService.tick()]);
 
 	registerShutdown([
 		async () => {

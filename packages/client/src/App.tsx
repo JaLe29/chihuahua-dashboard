@@ -6,6 +6,7 @@ import { ProjectConfigPage } from './pages/ProjectConfigPage';
 import { ProjectPage } from './pages/ProjectPage';
 import { ProjectSettingsPage } from './pages/ProjectSettingsPage';
 import { ProjectsPage } from './pages/ProjectsPage';
+import { RunPage } from './pages/RunPage';
 import { trpc, trpcClient } from './utils/trpc';
 
 const queryClient = new QueryClient({
@@ -22,6 +23,7 @@ export const App: React.FC = () => {
 			<Route element={<InAppLayout />} path="/">
 				<Route path="" Component={ProjectsPage} />
 				<Route path="project" Component={ProjectPage} />
+				<Route path="run/:id" Component={RunPage} />
 				<Route path="config" Component={ProjectConfigPage} />
 				<Route path="settings" Component={ProjectSettingsPage} />
 				<Route path="*" Component={ProjectsPage} />

@@ -6,7 +6,7 @@ import { trpc } from '../utils/trpc';
 export const RunsLengthHistoryChart = () => {
 	const formatedDate = useFormatedDate();
 	const { project } = useActiveProject();
-	const getRunsLengthHistory = trpc.run.getRunsLengthHistory.useQuery({ id: project?.id ?? 'TODO' });
+	const getRunsLengthHistory = trpc.run.getRunsLengthHistory.useQuery({ projectId: project?.id ?? 'TODO' });
 
 	/* 	const data = [
 		{ createdAt: '1991', value: 3 },

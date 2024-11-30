@@ -4,18 +4,18 @@ import { RunAction, RunStatus, type PrismaClient } from '@prisma/client';
 export class RunService {
 	constructor(private readonly prisma: PrismaClient) {}
 
-	async getRuns(id: string) {
+	async getRuns(projectId: string) {
 		const runs = await this.prisma.run.findMany({
-			where: { projectId: id },
+			where: { projectId },
 			orderBy: { createdAt: 'desc' },
 		});
 
 		return runs;
 	}
 
-	async getRunsLengthHistory(id: string) {
+	async getRunsLengthHistory(projectId: string) {
 		const finishedRuns = await this.prisma.run.findMany({
-			where: { projectId: id, status: RunStatus.finished },
+			where: { projectId, status: RunStatus.finished },
 			orderBy: { createdAt: 'desc' },
 			include: { runLogs: { where: { action: RunAction.onEnd } } },
 		});
@@ -30,5 +30,11 @@ export class RunService {
 		});
 
 		return runsLengthHistory;
+	}
+
+	async getRun(projectId: string, runId: string) {
+		const run = await this.prisma.run.findUnique({ where: { id: runId, projectId } });
+
+		return run;
 	}
 }

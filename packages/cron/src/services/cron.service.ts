@@ -7,7 +7,46 @@ import dayjs from 'dayjs';
 export class CronService {
 	constructor(private readonly prisma: PrismaClient) {}
 
-	async tickDeadRuns() {
+	private async tickEndedRuns(projectId: string, maxTimeout: number) {
+		const targetTime = dayjs().subtract(maxTimeout, 'minutes').toDate();
+
+		const runsWithoutEnd = await this.prisma.run.findMany({
+			where: {
+				projectId,
+				status: RunStatus.running,
+				createdAt: {
+					lt: targetTime,
+				},
+			},
+		});
+
+		for (const run of runsWithoutEnd) {
+			await this.prisma.run.update({
+				where: { id: run.id },
+				data: { status: RunStatus.timeout },
+			});
+			// eslint-disable-next-line no-console
+			console.log(`Run ${run.id} timed out`);
+		}
+	}
+
+	private async tickRetention(projectId: string, retention: number) {
+		const targetTime = dayjs().subtract(retention, 'days').toDate();
+
+		const runsToDelete = await this.prisma.run.findMany({
+			where: { projectId, createdAt: { lt: targetTime } },
+		});
+
+		for (const run of runsToDelete) {
+			// todo delete files
+			await this.prisma.run.delete({ where: { id: run.id } });
+
+			// eslint-disable-next-line no-console
+			console.log(`Run ${run.id} deleted`);
+		}
+	}
+
+	async tick() {
 		const projects = await this.prisma.project.findMany({
 			select: {
 				id: true,
@@ -25,28 +64,11 @@ export class CronService {
 				continue;
 			}
 
-			const { maxTimeout } = config;
+			const { maxTimeout, retention } = config;
 
-			const targetTime = dayjs().subtract(maxTimeout, 'minutes').toDate();
+			await this.tickEndedRuns(project.id, maxTimeout);
 
-			const runsWithoutEnd = await this.prisma.run.findMany({
-				where: {
-					projectId: project.id,
-					status: RunStatus.running,
-					createdAt: {
-						lt: targetTime,
-					},
-				},
-			});
-
-			for (const run of runsWithoutEnd) {
-				await this.prisma.run.update({
-					where: { id: run.id },
-					data: { status: RunStatus.timeout },
-				});
-				// eslint-disable-next-line no-console
-				console.log(`Run ${run.id} timed out`);
-			}
+			await this.tickRetention(project.id, retention);
 		}
 	}
 }
