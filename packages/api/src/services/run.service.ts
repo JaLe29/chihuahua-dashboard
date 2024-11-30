@@ -30,18 +30,33 @@ export class RunService {
 					status: RunStatus.running,
 				},
 			});
-		} else {
-			const run = await this.prisma.run.findFirstOrThrow({
-				where: { runId: payload.runId },
-			});
 
-			await this.prisma.runLog.create({
-				data: {
-					runId: run.id,
-					action: payload.action,
-					data: payload.data,
-				},
+			return true;
+		}
+
+		const run = await this.prisma.run.findFirstOrThrow({
+			where: { runId: payload.runId },
+		});
+
+		if (run.status !== RunStatus.running) {
+			return 'RUN_NOT_RUNNING';
+		}
+
+		if (payload.action === RunAction.onEnd) {
+			await this.prisma.run.update({
+				where: { id: run.id },
+				data: { status: RunStatus.finished },
 			});
 		}
+
+		await this.prisma.runLog.create({
+			data: {
+				runId: run.id,
+				action: payload.action,
+				data: payload.data,
+			},
+		});
+
+		return true;
 	}
 }

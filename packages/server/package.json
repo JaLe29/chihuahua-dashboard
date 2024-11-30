@@ -23,12 +23,11 @@
 		"prisma:studio": "prisma studio"
 	},
 	"dependencies": {
-		"@chihuahua-dashboard/shared": "workspace:*",
 		"@chihuahua-dashboard/shared-api": "workspace:*",
-		"@fastify/cors": "^10.0.1",
+		"@chihuahua-dashboard/shared-backend": "workspace:*",
+		"@chihuahua-dashboard/shared-server": "workspace:*",
 		"@prisma/client": "5.22.0",
 		"@trpc/server": "^10.45.2",
-		"fastify": "^5.1.0",
 		"zod": "^3.23.8"
 	},
 	"devDependencies": {

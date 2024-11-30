@@ -6,7 +6,7 @@ import {
 	ProFormSelect,
 	type ProFormInstance,
 } from '@ant-design/pro-components';
-import { DATE_FORMATS } from '@chihuahua-dashboard/shared';
+import { DATE_FORMATS } from '@chihuahua-dashboard/shared-server';
 import { css } from '@emotion/css';
 import { Button, Collapse, Divider, Modal, notification } from 'antd';
 import { useRef } from 'react';

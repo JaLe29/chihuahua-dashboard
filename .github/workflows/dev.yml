@@ -28,7 +28,7 @@ jobs:
           node_modules
           */*/node_modules
         key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
-  test:
+  test-lint:
     needs: setup
     runs-on: ubuntu-latest
     strategy:
@@ -56,7 +56,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        task: ['cron']
+        task: ['cron', 'api']
     steps:
     - uses: actions/checkout@v3
     - name: Setup Node.js

@@ -1,27 +1,30 @@
 {
-  "extends": "../../tsconfig.base.json",
-  "include": [
-    "src",
-    "@types",
-    "../../@types"
-  ],
-  "compilerOptions": {
-    "outDir": "dist",
-    "rootDir": "src",
-    "tsBuildInfoFile": ".cache/typescript/user-service.tsbuildinfo",
-    "strictPropertyInitialization": false,
-    "isolatedModules": false,
-    "types": [
-      "node",
-      "vitest/globals"
-    ]
-  },
-  "references": [
-    {
-      "path": "../shared/tsconfig.build.json"
-    },
-    {
-      "path": "../shared-api/tsconfig.build.json"
-    }
-  ]
+	"extends": "../../tsconfig.base.json",
+	"include": [
+		"src",
+		"@types",
+		"../../@types"
+	],
+	"compilerOptions": {
+		"outDir": "dist",
+		"rootDir": "src",
+		"tsBuildInfoFile": ".cache/typescript/user-service.tsbuildinfo",
+		"strictPropertyInitialization": false,
+		"isolatedModules": false,
+		"types": [
+			"node",
+			"vitest/globals"
+		]
+	},
+	"references": [
+		{
+			"path": "../shared-server/tsconfig.build.json"
+		},
+		{
+			"path": "../shared-api/tsconfig.build.json"
+		},
+		{
+			"path": "../shared-backend/tsconfig.build.json"
+		}
+	]
 }

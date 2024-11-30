@@ -1,26 +1,39 @@
 /* eslint-disable no-console */
-import cors from '@fastify/cors';
+import {
+	getRequiredNumber,
+	getRequiredString,
+	loadEnv,
+	registerShutdown,
+	Server,
+} from '@chihuahua-dashboard/shared-backend';
 import { PrismaClient } from '@prisma/client';
 import type { CreateFastifyContextOptions, FastifyTRPCPluginOptions } from '@trpc/server/adapters/fastify';
 import { fastifyTRPCPlugin } from '@trpc/server/adapters/fastify';
-import Fastify from 'fastify';
 import { ProjectService } from './services/project.service';
 import { RunService } from './services/run.service';
 import { createContext } from './trpc/context';
 import { appRouter, type AppRouter } from './trpc/router';
 
-const prisma = new PrismaClient();
-
 const start = async (): Promise<void> => {
-	await prisma.$connect();
+	loadEnv();
 
-	const fastify = Fastify({
-		logger: true,
-		maxParamLength: 5000,
+	const databaseUrl = getRequiredString('DATABASE_URL');
+	const appPort = getRequiredNumber('SERVER_PORT');
+
+	const prisma = new PrismaClient({
+		datasources: {
+			db: {
+				url: databaseUrl,
+			},
+		},
 	});
 
-	await fastify.register(cors, {
-		// put your options here
+	await prisma.$connect();
+
+	const server = new Server({
+		cors: true,
+		appName: 'server',
+		port: appPort,
 	});
 
 	const services = {
@@ -28,7 +41,7 @@ const start = async (): Promise<void> => {
 		runService: new RunService(prisma),
 	};
 
-	await fastify.register(fastifyTRPCPlugin, {
+	await server.register(fastifyTRPCPlugin, {
 		prefix: '/trpc',
 		trpcOptions: {
 			router: appRouter,
@@ -40,7 +53,16 @@ const start = async (): Promise<void> => {
 		} satisfies FastifyTRPCPluginOptions<AppRouter>['trpcOptions'],
 	});
 
-	await fastify.listen({ port: 4000 });
+	registerShutdown([
+		async () => {
+			await server.close();
+		},
+		async () => {
+			await prisma.$disconnect();
+		},
+	]);
+
+	await server.listen();
 };
 
 start().catch(e => {

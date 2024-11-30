@@ -1,4 +1,4 @@
-import { DATE_FORMATS, type ProjectConfig } from '@chihuahua-dashboard/shared';
+import { DATE_FORMATS, type ProjectConfig } from '@chihuahua-dashboard/shared-server';
 import type { PrismaClient } from '@prisma/client';
 import type { InputJsonValue } from '@prisma/client/runtime/library';
 
@@ -39,7 +39,7 @@ export class ProjectService {
 
 	async createProject(): Promise<{ id: string }> {
 		const config: ProjectConfig = {
-			maxTimeout: 1000 * 60 * 60,
+			maxTimeout: 60,
 			retention: 1,
 			dateFormat: DATE_FORMATS[0].value,
 		};

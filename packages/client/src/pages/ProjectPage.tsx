@@ -20,14 +20,9 @@ const COLUMNS: ProColumns<ProjectRow>[] = [
 		render: (_, record) => <DateWithFormat date={record.createdAt} />,
 	},
 	{
-		dataIndex: 'isRunning',
-		title: 'isRunning',
-		render: (_, record) => (record.isRunning ? 'Yes' : 'No'),
-	},
-	{
-		dataIndex: 'duration',
-		title: 'duration',
-		render: (_, record) => (record.data.onEnd?.duration ? `${record.data.onEnd.duration}ms` : ''),
+		dataIndex: 'status',
+		title: 'status',
+		render: (_, record) => record.status,
 	},
 ];
 

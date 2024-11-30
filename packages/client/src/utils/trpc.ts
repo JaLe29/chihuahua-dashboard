@@ -6,7 +6,7 @@ import type { inferRouterInputs, inferRouterOutputs } from '@trpc/server';
 
 export const trpc = createTRPCReact<AppRouter>();
 
-const BASE_API = 'http://localhost:4000';
+const BASE_API = 'http://localhost:3002';
 
 export const trpcClient = trpc.createClient({
 	// transformer: superjson as any,

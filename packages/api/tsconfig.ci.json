@@ -1,15 +1,18 @@
 {
-  "extends": "./tsconfig.build.json",
-  "exclude": [
-    ".yarn/*",
-    "**/dist",
-    "**/.*/",
-    "**/scripts",
-    "../../@types/*.typetest.*"
-  ],
-  "references": [
-    {
-      "path": "../shared-api/tsconfig.build.json"
-    },
-  ]
+	"extends": "./tsconfig.build.json",
+	"exclude": [
+		".yarn/*",
+		"**/dist",
+		"**/.*/",
+		"**/scripts",
+		"../../@types/*.typetest.*"
+	],
+	"references": [
+		{
+			"path": "../shared-api/tsconfig.build.json"
+		},
+		{
+			"path": "../shared-backend/tsconfig.build.json"
+		}
+	]
 }

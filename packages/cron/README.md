@@ -1,1 +1,1 @@
-# @chihuahua-dashboard/cron
+# @chihuahua-dashboard/shared-backend

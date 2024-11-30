@@ -1,5 +1,5 @@
 {
-  "name": "@chihuahua-dashboard/shared",
+  "name": "@chihuahua-dashboard/shared-server",
   "version": "1.0.0",
   "license": "ISC",
   "private": true,
@@ -18,7 +18,8 @@
     "typecheck": "tsc --build tsconfig.ci.json",
     "prisma:db:pull": "prisma db pull"
   },
-  "peerDependencies": {
+  "dependencies": {
+    "dotenv": "^16.4.5",
     "zod": "^3.23.8"
   },
   "devDependencies": {

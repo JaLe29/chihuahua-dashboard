@@ -1,4 +1,4 @@
-import { ID } from '@chihuahua-dashboard/shared';
+import { ID } from '@chihuahua-dashboard/shared-server';
 import { z } from 'zod';
 import type { Procedure, Router } from '../trpc/router';
 

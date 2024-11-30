@@ -1,7 +1,8 @@
 /* eslint-disable no-await-in-loop */
 /* eslint-disable no-restricted-syntax */
-import type { ProjectConfig } from '@chihuahua-dashboard/shared';
+import type { ProjectConfig } from '@chihuahua-dashboard/shared-server';
 import { RunStatus, type PrismaClient } from '@prisma/client';
+import dayjs from 'dayjs';
 
 export class CronService {
 	constructor(private readonly prisma: PrismaClient) {}
@@ -26,12 +27,14 @@ export class CronService {
 
 			const { maxTimeout } = config;
 
+			const targetTime = dayjs().subtract(maxTimeout, 'minutes').toDate();
+
 			const runsWithoutEnd = await this.prisma.run.findMany({
 				where: {
 					projectId: project.id,
 					status: RunStatus.running,
 					createdAt: {
-						lt: new Date(Date.now() - maxTimeout * 60 * 1000),
+						lt: targetTime,
 					},
 				},
 			});

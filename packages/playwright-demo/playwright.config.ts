@@ -5,7 +5,7 @@ import { type ChihuahuaReporterOptions } from '@chihuahua-dashboard/reporter';
 const options: ChihuahuaReporterOptions = {
 	api: {
 		apiUrl: 'http://localhost:4001',
-		apiToken: '81579360-45fe-430a-89a5-609e412ef335-0a0a7c82-af74-42bc-bacb-ae60546732d1-65b2e709-3daa-4690-9e67-f44dbf02ad3e-31f2cf83-4b86-4692-91bf-1ced5ed3d545-caa23fc1-3888-4e4c-9183-c1b24b143cc7',
+		apiToken: '78a7d71e-29da-4cd8-a877-7985547e1021-36ed7f49-b9c3-4f88-aee3-6d277795eeec-90e2b59b-91ad-4219-8835-c4ed36de9568-be016c70-69c2-4d80-8a67-7b2699e64b22-1c31dd39-425b-4412-bdda-30bf4a76157a',
 	},
 	runId: 'test',
 };

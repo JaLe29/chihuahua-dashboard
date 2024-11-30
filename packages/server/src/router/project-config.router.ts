@@ -1,5 +1,5 @@
-import type { ProjectConfig } from '@chihuahua-dashboard/shared';
-import { ID, PROJECT_CONFIG_SCHEMA } from '@chihuahua-dashboard/shared';
+import type { ProjectConfig } from '@chihuahua-dashboard/shared-server';
+import { ID, PROJECT_CONFIG_SCHEMA } from '@chihuahua-dashboard/shared-server';
 import type { InputJsonValue } from '@prisma/client/runtime/library';
 import { z } from 'zod';
 import type { Procedure, Router } from '../trpc/router';

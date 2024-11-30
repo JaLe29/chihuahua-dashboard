@@ -1,32 +1,42 @@
 /* eslint-disable no-console */
 
 import { PAYLOAD } from '@chihuahua-dashboard/shared-api';
-import cors from '@fastify/cors';
+import {
+	getRequiredNumber,
+	getRequiredString,
+	loadEnv,
+	registerShutdown,
+	Server,
+} from '@chihuahua-dashboard/shared-backend';
 import { PrismaClient } from '@prisma/client';
-import Fastify from 'fastify';
-import type { ZodTypeProvider } from 'fastify-type-provider-zod';
-import { serializerCompiler, validatorCompiler } from 'fastify-type-provider-zod';
 import z from 'zod';
 import { RunService } from './services/run.service';
 
-const prisma = new PrismaClient();
-
 const start = async (): Promise<void> => {
-	await prisma.$connect();
+	loadEnv();
 
-	const fastify = Fastify({
-		logger: false,
-		maxParamLength: 5000,
+	const databaseUrl = getRequiredString('DATABASE_URL');
+	const appPort = getRequiredNumber('API_PORT');
+
+	const prisma = new PrismaClient({
+		datasources: {
+			db: {
+				url: databaseUrl,
+			},
+		},
 	});
 
-	fastify.setValidatorCompiler(validatorCompiler);
-	fastify.setSerializerCompiler(serializerCompiler);
+	await prisma.$connect();
 
-	await fastify.register(cors, {});
+	const server = new Server({
+		appName: 'api',
+		port: appPort,
+		validators: true,
+	});
 
 	const runService = new RunService(prisma);
 
-	fastify.withTypeProvider<ZodTypeProvider>().route({
+	server.withTypeProvider().route({
 		method: 'POST',
 		url: '/v1/playwright/step',
 		schema: {
@@ -57,14 +67,28 @@ const start = async (): Promise<void> => {
 
 			const { body } = request;
 
-			await runService.log(projectId, body);
+			const result = await runService.log(projectId, body);
+
+			if (result === 'RUN_NOT_RUNNING') {
+				await reply.status(400).send({ message: 'Run not running' });
+
+				return;
+			}
 
 			await reply.send({ message: 'ok' });
 		},
 	});
 
-	await fastify.listen({ port: 4001 });
-	console.log('Server running on port 4000');
+	registerShutdown([
+		async () => {
+			await server.close();
+		},
+		async () => {
+			await prisma.$disconnect();
+		},
+	]);
+
+	await server.listen();
 };
 
 start().catch(e => {

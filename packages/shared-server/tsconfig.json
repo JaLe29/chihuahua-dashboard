@@ -3,11 +3,9 @@
 	"exclude": [
 		".yarn/*",
 		"**/dist",
-		"../@types/*.typetest.*"
+		"../../@types/*.typetest.*"
 	],
 	"references": [
-		{
-			"path": "../shared-server/tsconfig.build.json"
-		},
+
 	]
 }

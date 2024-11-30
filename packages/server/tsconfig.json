@@ -7,10 +7,13 @@
 	],
 	"references": [
 		{
-			"path": "../shared/tsconfig.build.json"
+			"path": "../shared-server/tsconfig.build.json"
 		},
 		{
 			"path": "../shared-api/tsconfig.build.json"
+		},
+		{
+			"path": "../shared-backend/tsconfig.build.json"
 		}
 	]
 }

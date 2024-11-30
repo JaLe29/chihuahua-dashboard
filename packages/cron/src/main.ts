@@ -1,35 +1,55 @@
 /* eslint-disable no-console */
-
-import cors from '@fastify/cors';
+import {
+	getRequiredNumber,
+	getRequiredString,
+	loadEnv,
+	registerShutdown,
+	Server,
+} from '@chihuahua-dashboard/shared-backend';
 import { PrismaClient } from '@prisma/client';
-import Fastify from 'fastify';
 import { CronService } from './services/cron.service';
 
-const prisma = new PrismaClient();
-
 const start = async (): Promise<void> => {
-	await prisma.$connect();
+	loadEnv();
+	const databaseUrl = getRequiredString('DATABASE_URL');
+	const appPort = getRequiredNumber('CRON_PORT');
 
-	const fastify = Fastify({
-		logger: false,
-		maxParamLength: 5000,
+	const prisma = new PrismaClient({
+		datasources: {
+			db: {
+				url: databaseUrl,
+			},
+		},
 	});
 
-	await fastify.register(cors, {});
+	await prisma.$connect();
+
+	const server = new Server({
+		appName: 'cron',
+		port: appPort,
+	});
 
 	const cronService = new CronService(prisma);
 
 	setInterval(
-		() => {
-			cronService.tickDeadRuns();
+		async () => {
+			await cronService.tickDeadRuns();
 		},
 		1000 * 60 * 1,
 	); // ! minutes
 
 	await Promise.all([cronService.tickDeadRuns()]);
 
-	await fastify.listen({ port: 4001 });
-	console.log('Server running on port 4000x');
+	registerShutdown([
+		async () => {
+			await server.close();
+		},
+		async () => {
+			await prisma.$disconnect();
+		},
+	]);
+
+	await server.listen();
 };
 
 start().catch(e => {
