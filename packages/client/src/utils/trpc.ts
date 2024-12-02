@@ -1,15 +1,16 @@
 import { createTRPCProxyClient, httpLink } from '@trpc/client';
 import { createTRPCReact } from '@trpc/react-query';
+import superjson from 'superjson';
 // eslint-disable-next-line import/no-relative-packages
 import type { AppRouter } from '@chihuahua-dashboard/server/src/trpc/router';
 import type { inferRouterInputs, inferRouterOutputs } from '@trpc/server';
 
-export const trpc = createTRPCReact<AppRouter>();
+export const trpc = createTRPCReact<AppRouter>({});
 
 const BASE_API = 'http://localhost:3002';
 
 export const trpcClient = trpc.createClient({
-	// transformer: superjson as any,
+	transformer: superjson,
 
 	links: [
 		// httpBatchLink({
@@ -31,7 +32,7 @@ export const trpcClient = trpc.createClient({
 });
 
 export const trcpProxyClient = createTRPCProxyClient<AppRouter>({
-	// transformer: superjson as any,
+	transformer: superjson,
 	links: [
 		// httpBatchLink({
 		httpLink({

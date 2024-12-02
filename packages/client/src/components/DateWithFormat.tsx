@@ -2,7 +2,7 @@ import dayjs from 'dayjs';
 import { useActiveProject } from '../hooks/useActiveProject';
 
 interface Props {
-	date: string;
+	date: Date;
 }
 
 export const DateWithFormat = ({ date }: Props) => {

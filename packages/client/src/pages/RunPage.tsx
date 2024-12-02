@@ -1,5 +1,10 @@
+/* eslint-disable react/no-unstable-nested-components */
 import { PageContainer, ProCard, StatisticCard } from '@ant-design/pro-components';
+
 import { useParams } from 'react-router-dom';
+import { RealTime } from '../components/RealTime';
+import { RunStatus } from '../components/RunStatus';
+import { TestDuration } from '../components/TestDuration';
 import { WithActiveProject } from '../components/WithActiveProject';
 import { useActiveProject } from '../hooks/useActiveProject';
 import { trpc } from '../utils/trpc';
@@ -44,18 +49,30 @@ const RunPageInner = () => {
 						chartPlacement="left"
 					/>
 					<StatisticCard
+						loading={getRun.isLoading}
 						statistic={{
-							title: '免费流量',
-							value: 1806062,
-							description: <Statistic title="占比" value="38.5%" />,
+							title: 'Test state',
+							value: '-', // using valueRender
+							description: (
+								<RealTime startTime={(getRun.data?.run.createdAt as unknown as Date) ?? new Date()} />
+							),
+							valueRender: () => {
+								const createdAt = (getRun.data?.run.createdAt as unknown as Date) ?? new Date();
+								const duration = getRun.data?.logs.onEnd?.duration;
+
+								// eslint-disable-next-line no-console
+								console.log(getRun.data);
+
+								return (
+									<TestDuration
+										createdAt={createdAt}
+										status={getRun.data?.run.status ?? 'running'}
+										duration={duration}
+									/>
+								);
+							},
 						}}
-						chart={
-							<img
-								src="https://gw.alipayobjects.com/zos/alicdn/6YR18tCxJ/huanlv.svg"
-								alt="百分比"
-								width="100%"
-							/>
-						}
+						chart={getRun.data && <RunStatus status={getRun.data?.run.status} />}
 						chartPlacement="left"
 					/>
 				</StatisticCard.Group>

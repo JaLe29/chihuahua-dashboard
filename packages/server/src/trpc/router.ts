@@ -1,10 +1,11 @@
 import { initTRPC } from '@trpc/server';
+import superjson from 'superjson';
 import { getProjectConfigRouter } from '../router/project-config.router';
 import { getProjectRouter } from '../router/project.router';
 import { getRunRouter } from '../router/run.router';
 import type { Context } from './context';
 
-export const t = initTRPC.context<Context>().create();
+export const t = initTRPC.context<Context>().create({ transformer: superjson });
 export const appRouter = t.router({
 	project: getProjectRouter(t.router, t.procedure),
 	projectConfig: getProjectConfigRouter(t.router, t.procedure),

@@ -8,9 +8,21 @@ export class RunService {
 		const runs = await this.prisma.run.findMany({
 			where: { projectId },
 			orderBy: { createdAt: 'desc' },
+			include: { runLogs: { where: { action: RunAction.onEnd } } },
 		});
 
-		return runs;
+		return runs.map(r => {
+			const { runLogs, ...rest } = r;
+
+			return {
+				run: rest,
+				logs: {
+					onEnd: runLogs.find(log => log.action === RunAction.onEnd)?.data as unknown as
+						| OnEndPayload
+						| undefined,
+				},
+			};
+		});
 	}
 
 	async getRunsLengthHistory(projectId: string) {
@@ -33,8 +45,20 @@ export class RunService {
 	}
 
 	async getRun(projectId: string, runId: string) {
-		const run = await this.prisma.run.findUnique({ where: { id: runId, projectId } });
+		const run = await this.prisma.run.findUnique({ where: { id: runId, projectId }, include: { runLogs: true } });
+		if (!run) {
+			return null;
+		}
 
-		return run;
+		const { runLogs, ...rest } = run;
+
+		return {
+			run: rest,
+			logs: {
+				onEnd: runLogs?.find(log => log.action === RunAction.onEnd)?.data as unknown as
+					| OnEndPayload
+					| undefined,
+			},
+		};
 	}
 }

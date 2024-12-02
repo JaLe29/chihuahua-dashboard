@@ -1,4 +1,6 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import dayjs from 'dayjs';
+import durationPlugin from 'dayjs/plugin/duration';
 import React from 'react';
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom';
 import { InAppLayout } from './InAppLayout';
@@ -8,6 +10,8 @@ import { ProjectSettingsPage } from './pages/ProjectSettingsPage';
 import { ProjectsPage } from './pages/ProjectsPage';
 import { RunPage } from './pages/RunPage';
 import { trpc, trpcClient } from './utils/trpc';
+
+dayjs.extend(durationPlugin);
 
 const queryClient = new QueryClient({
 	defaultOptions: {
