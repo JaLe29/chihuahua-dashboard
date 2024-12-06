@@ -34,7 +34,7 @@ jobs:
     strategy:
       matrix:
         task: ['api', 'reporter', 'server', 'shared-server', 'shared-api', 'shared-backend', 'client', 'playwright-demo', 'cron']
-        command: ['lint', 'typecheck']
+        command: ['lint', 'build']
     steps:
     - uses: actions/checkout@v3
     - name: Setup Node.js

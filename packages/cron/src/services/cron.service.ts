@@ -23,7 +23,7 @@ export class CronService {
 		for (const run of runsWithoutEnd) {
 			await this.prisma.run.update({
 				where: { id: run.id },
-				data: { status: RunStatus.timeout },
+				data: { status: RunStatus.timeout, timeoutAt: dayjs().toDate(), timeoutDuration: maxTimeout },
 			});
 			// eslint-disable-next-line no-console
 			console.log(`Run ${run.id} timed out`);

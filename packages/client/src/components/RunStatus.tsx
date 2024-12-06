@@ -10,12 +10,12 @@ const RUN_STATUS_COMPONENT: Record<RunStatusType, React.ReactElement> = {
 	),
 	finished: (
 		<Tooltip title="The test is completed">
-			<FlagTwoTone />
+			<FlagTwoTone twoToneColor="#52c41a" />
 		</Tooltip>
 	),
 	timeout: (
 		<Tooltip title="Test ended with a timeout">
-			<ClockCircleTwoTone />
+			<ClockCircleTwoTone twoToneColor="#fa541c" />
 		</Tooltip>
 	),
 };

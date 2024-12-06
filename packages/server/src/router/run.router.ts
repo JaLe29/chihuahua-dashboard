@@ -11,7 +11,7 @@ export const getRunRouter = (router: Router, procedure: Procedure) =>
 		getRunsLengthHistory: procedure
 			.input(z.object({ projectId: ID }))
 			.query(({ ctx, input }) => ctx.services.runService.getRunsLengthHistory(input.projectId)),
-		getRun: procedure
+		getRunHeader: procedure
 			.input(z.object({ projectId: ID, runId: ID }))
-			.query(({ ctx, input }) => ctx.services.runService.getRun(input.projectId, input.runId)),
+			.query(({ ctx, input }) => ctx.services.runService.getRunHeader(input.projectId, input.runId)),
 	});

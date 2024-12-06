@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-
 import { PAYLOAD } from '@chihuahua-dashboard/shared-api';
 import {
 	getRequiredNumber,
@@ -51,8 +49,6 @@ const start = async (): Promise<void> => {
 			const token = request.headers.authorization;
 			const projectId = await runService.getProjectId(token);
 
-			console.log({ token });
-
 			if (projectId === 'EMPTY_TOKEN') {
 				await reply.status(401).send({ message: 'Unauthorized' });
 
@@ -92,5 +88,6 @@ const start = async (): Promise<void> => {
 };
 
 start().catch(e => {
+	// eslint-disable-next-line no-console
 	console.error(e);
 });

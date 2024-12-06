@@ -13,10 +13,6 @@ import type {
 import { randomUUID } from 'crypto';
 import type { ChihuahuaReporterOptions } from './types';
 
-// types shared
-
-// ------------------------------------------------------------
-
 /* eslint-disable no-console */
 export class ChihuahuaReporter implements Reporter {
 	private readonly runId = randomUUID();
@@ -52,13 +48,10 @@ export class ChihuahuaReporter implements Reporter {
 	async onBegin(config: FullConfig, suite: Suite) {
 		const tests = suite.allTests();
 
-		console.log(tests);
 		const tetsPayload: OnBeginPayload = tests.map(test => ({
 			id: test.id,
 			title: test.title,
 		}));
-
-		console.log(tetsPayload);
 
 		await this.sendStep({
 			action: 'onBegin',
@@ -67,11 +60,18 @@ export class ChihuahuaReporter implements Reporter {
 	}
 
 	async onTestBegin(test: TestCase) {
-		await Promise.resolve();
+		console.log(`Begin ${test.id}`);
+		await this.sendStep({
+			action: 'onTestBegin',
+			data: { id: test.id },
+		});
 	}
 
 	async onTestEnd(test: TestCase, result: TestResult) {
-		await Promise.resolve();
+		await this.sendStep({
+			action: 'onTestEnd',
+			data: { id: test.id, result: { duration: result.duration, status: result.status } },
+		});
 	}
 
 	async onStepBegin(test: TestCase, result: TestResult, step: TestStep) {

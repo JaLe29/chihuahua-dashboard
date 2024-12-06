@@ -1,4 +1,4 @@
-import type { OnEndPayload } from '@chihuahua-dashboard/shared-api';
+import type { OnBeginPayload, OnEndPayload } from '@chihuahua-dashboard/shared-api';
 import { RunAction, RunStatus, type PrismaClient } from '@prisma/client';
 
 export class RunService {
@@ -44,13 +44,20 @@ export class RunService {
 		return runsLengthHistory;
 	}
 
-	async getRun(projectId: string, runId: string) {
-		const run = await this.prisma.run.findUnique({ where: { id: runId, projectId }, include: { runLogs: true } });
+	async getRunHeader(projectId: string, runId: string) {
+		const run = await this.prisma.run.findUnique({
+			where: { id: runId, projectId },
+			include: { runLogs: { where: { OR: [{ action: RunAction.onEnd }, { action: RunAction.onBegin }] } } },
+		});
 		if (!run) {
 			return null;
 		}
 
 		const { runLogs, ...rest } = run;
+
+		const onBegin = runLogs?.find(log => log.action === RunAction.onBegin)?.data as unknown as
+			| OnBeginPayload
+			| undefined;
 
 		return {
 			run: rest,
@@ -58,7 +65,11 @@ export class RunService {
 				onEnd: runLogs?.find(log => log.action === RunAction.onEnd)?.data as unknown as
 					| OnEndPayload
 					| undefined,
+				onBegin: runLogs?.find(log => log.action === RunAction.onBegin)?.data as unknown as
+					| OnBeginPayload
+					| undefined,
 			},
+			totalTests: onBegin?.length ?? 0,
 		};
 	}
 }

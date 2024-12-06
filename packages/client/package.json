@@ -15,8 +15,7 @@
     "test": "vitest --passWithNoTests",
     "test:coverage": "yarn test --coverage",
     "lint": "eslint ./src --ext .ts,.tsx --ignore-path ../../.eslintignore",
-    "lint:fix": "eslint ./src --ext .ts,.tsx --fix",
-    "typecheck": "tsc --build tsconfig.ci.json"
+    "lint:fix": "eslint ./src --ext .ts,.tsx --fix"
   },
   "dependencies": {
     "@ant-design/icons": "^5.5.2",
@@ -29,6 +28,7 @@
     "@trpc/react-query": "^10.45.2",
     "@trpc/server": "^10.45.2",
     "antd": "^5.22.2",
+    "change-case": "^4.1.2",
     "dayjs": "^1.11.13",
     "react": "18.3.1",
     "react-dom": "18.3.1",

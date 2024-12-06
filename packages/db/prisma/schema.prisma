@@ -52,6 +52,7 @@ model RunLog {
     // -----------------------
     action    RunAction
     data      Json
+    testId    String?
 
     runId String @db.ObjectId
     run   Run    @relation(fields: [runId], references: [id], onDelete: Cascade)
@@ -67,6 +68,9 @@ model Run {
     runId     String
     projectId String    @db.ObjectId
     project   Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+	timeoutAt DateTime?
+	timeoutDuration Int?
 
     runLogs RunLog[]
 }

@@ -5,8 +5,7 @@
 		"clean:test": "rimraf ./playwright-report",
 		"lint": "eslint \"src/**/*.ts\"",
 		"lint:fix": "eslint ./src --ext .ts --fix",
-		"typecheck": "echo 1",
-		"build": "tsc --build tsconfig.json",
+		"build": "echo 1",
 		"test": "yarn clean:test && playwright test",
 		"deps": "npx playwright install",
 		"show-report": "yarn playwright show-report"

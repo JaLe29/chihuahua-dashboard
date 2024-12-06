@@ -28,6 +28,12 @@ export class RunService {
 					projectId,
 					runId: payload.runId,
 					status: RunStatus.running,
+					runLogs: {
+						create: {
+							action: RunAction.onBegin,
+							data: payload.data,
+						},
+					},
 				},
 			});
 
@@ -54,6 +60,7 @@ export class RunService {
 				runId: run.id,
 				action: payload.action,
 				data: payload.data,
+				testId: (payload.data as { id?: string }).id,
 			},
 		});
 

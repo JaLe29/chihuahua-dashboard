@@ -10,6 +10,7 @@ import { PrismaClient } from '@prisma/client';
 import type { CreateFastifyContextOptions, FastifyTRPCPluginOptions } from '@trpc/server/adapters/fastify';
 import { fastifyTRPCPlugin } from '@trpc/server/adapters/fastify';
 import { ProjectService } from './services/project.service';
+import { RunLogsService } from './services/run-logs.service';
 import { RunService } from './services/run.service';
 import { createContext } from './trpc/context';
 import { appRouter, type AppRouter } from './trpc/router';
@@ -39,6 +40,7 @@ const start = async (): Promise<void> => {
 	const services = {
 		projectService: new ProjectService(prisma),
 		runService: new RunService(prisma),
+		runLogsService: new RunLogsService(prisma),
 	};
 
 	await server.register(fastifyTRPCPlugin, {

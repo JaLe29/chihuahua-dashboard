@@ -1,5 +1,5 @@
 {
-	"extends": "./tsconfig.ci.json",
+	"extends": "./tsconfig.build.json",
 	"exclude": [
 		".yarn/*",
 		"**/dist",
