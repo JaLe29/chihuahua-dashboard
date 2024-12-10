@@ -1,0 +1,35 @@
+{
+  "name": "@chihuahua-dashboard/shared-backend",
+  "version": "1.0.0",
+  "license": "ISC",
+  "private": true,
+  "standalone": true,
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc --build tsconfig.build.json",
+    "clean": "rimraf dist && rimraf .cache",
+    "start:prod": "node --enable-source-maps ./dist/main.js",
+    "start:dev": "tsx --watch src/main.ts",
+    "test": "vitest --passWithNoTests",
+    "test:coverage": "yarn test --coverage",
+    "lint": "eslint \"src/**/*.ts\" --ignore-path ../../.eslintignore",
+    "lint:fix": "eslint ./src --ext .ts --fix --ignore-path ../../.eslintignore",
+    "prisma:db:pull": "prisma db pull"
+  },
+  "dependencies": {
+    "@fastify/cors": "^10.0.1",
+    "dotenv": "^16.4.5",
+    "fastify": "^5.1.0",
+    "fastify-type-provider-zod": "^4.0.2",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.1",
+    "eslint": "8.57.1",
+    "rimraf": "6.0.1",
+    "tsx": "^4.19.2",
+    "typescript": "5.7.2",
+    "vitest": "1.6.0"
+  }
+}

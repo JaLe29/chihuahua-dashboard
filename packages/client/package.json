@@ -1,0 +1,70 @@
+{
+  "name": "@chihuahua-dashboard/client",
+  "version": "1.0.0",
+  "license": "ISC",
+  "standalone": true,
+  "private": true,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "dev": "vite --mode development",
+    "build": "vite build --mode release",
+    "build:ts": "tsc --build tsconfig.build.json",
+    "watch": "yarn build --watch",
+    "clean": "rimraf dist && rimraf .cache",
+    "test": "vitest --passWithNoTests",
+    "test:coverage": "yarn test --coverage",
+    "lint": "eslint ./src --ext .ts,.tsx --ignore-path ../../.eslintignore",
+    "lint:fix": "eslint ./src --ext .ts,.tsx --fix"
+  },
+  "dependencies": {
+    "@ant-design/icons": "^5.5.2",
+    "@ant-design/plots": "^2.3.2",
+    "@ant-design/pro-components": "^2.8.2",
+    "@chihuahua-dashboard/shared-server": "workspace:*",
+    "@emotion/css": "^11.13.5",
+    "@tanstack/react-query": "^4.36.1",
+    "@trpc/client": "^10.45.2",
+    "@trpc/react-query": "^10.45.2",
+    "@trpc/server": "^10.45.2",
+    "antd": "^5.22.4",
+    "change-case": "^5.4.4",
+    "dayjs": "^1.11.13",
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
+    "react-router-dom": "7.0.2",
+    "superjson": "^2.2.2",
+    "zod": "^3.23.8",
+    "zustand": "^5.0.2"
+  },
+  "devDependencies": {
+    "@testing-library/react": "13.4.0",
+    "@types/react": "19.0.1",
+    "@types/react-dom": "19.0.2",
+    "@types/react-router-dom": "^5.3.3",
+    "@vitejs/plugin-react": "^4.3.4",
+    "eslint": "8.57.1",
+    "rimraf": "^6.0.1",
+    "typescript": "5.7.2",
+    "vite": "5.4.11",
+    "vite-tsconfig-paths": "^4.3.2",
+    "vitest": "1.6.0"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "babel": {
+    "presets": [
+      "react-app"
+    ]
+  }
+}

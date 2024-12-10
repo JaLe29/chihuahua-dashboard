@@ -1,0 +1,65 @@
+name: Test
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20'
+        cache: 'yarn'
+    - name: Install dependencies
+      run: yarn install
+    - name: Prisma generate
+      run: yarn prisma:generate
+    - name: Cache node_modules
+      uses: actions/cache/save@v3
+      with:
+        path: |
+          node_modules
+          */*/node_modules
+        key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+  test-lint:
+    needs: setup
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        task: ['api', 'reporter', 'server', 'shared-server', 'shared-api', 'shared-backend', 'client', 'playwright-demo', 'cron']
+        command: ['lint', 'build']
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20'
+    - name: Restore cache
+      uses: actions/cache/restore@v3
+      with:
+        path: |
+          node_modules
+          */*/node_modules
+        key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-modules-
+    - name: Run ${{ matrix.task }} ${{ matrix.command }}
+      run: yarn workspace @chihuahua-dashboard/${{ matrix.task }} ${{ matrix.command }}
+  test-build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        task: ['cron', 'api', 'server']
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+    - name: Run docker build ${{ matrix.task }}
+      run: docker build -f ./packages/${{ matrix.task }}/Dockerfile .

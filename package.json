@@ -1,0 +1,57 @@
+{
+  "name": "chihuahua-dashboard",
+  "root": true,
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "packages/**"
+  ],
+  "scripts": {
+    "start:server": "yarn workspace @chihuahua-dashboard/server start:dev",
+    "start:client": "yarn workspace @chihuahua-dashboard/client dev",
+    "start:api": "yarn workspace @chihuahua-dashboard/api start:dev",
+    "start:test": "yarn workspace @chihuahua-dashboard/playwright-demo test",
+    "start:test:show:report": "yarn workspace @chihuahua-dashboard/playwright-demo show-report",
+    "watch:reporter": "yarn workspace @chihuahua-dashboard/reporter start:dev",
+    "start:studio": "yarn workspace @chihuahua-dashboard/server prisma:studio",
+    "start:cron": "yarn workspace @chihuahua-dashboard/cron start:dev",
+    "prisma:generate": "yarn workspaces foreach -A run prisma:generate",
+    "lint": "yarn workspaces foreach -A run lint",
+    "build": "yarn workspaces foreach -A run build"
+  },
+  "devDependencies": {
+    "@swc/core": "^1.9.3",
+    "@types/node": "^20.11.1",
+    "@typescript-eslint/eslint-plugin": "7.18.0",
+    "@typescript-eslint/parser": "7.18.0",
+    "@vitejs/plugin-react": "^4.3.3",
+    "@vitest/coverage-v8": "^1.5.2",
+    "eslint": "8.57.1",
+    "eslint-config-airbnb": "19.0.4",
+    "eslint-config-prettier": "9.1.0",
+    "eslint-import-resolver-typescript": "^3.6.3",
+    "eslint-plugin-import": "2.31.0",
+    "eslint-plugin-jsx-a11y": "6.10.2",
+    "eslint-plugin-no-only-tests": "3.3.0",
+    "eslint-plugin-prettier": "5.2.1",
+    "eslint-plugin-react": "7.37.2",
+    "eslint-plugin-react-hooks": "4.6.2",
+    "eslint-plugin-validate-jsx-nesting": "^0.1.1",
+    "jsdom": "16.7.0",
+    "prettier": "3.4.2",
+    "prettier-plugin-organize-imports": "^3.2.4",
+    "rimraf": "6.0.1",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "5.7.2",
+    "unplugin-swc": "^1.5.1",
+    "vite": "5.4.11",
+    "vite-tsconfig-paths": "^4.3.2",
+    "vitest": "1.6.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:JaLe29/chihuahua-dashboard.git"
+  },
+  "license": "ISC",
+  "packageManager": "yarn@4.5.3"
+}
