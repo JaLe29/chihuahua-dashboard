@@ -6,9 +6,15 @@ import {
 	registerShutdown,
 	Server,
 } from '@chihuahua-dashboard/shared-backend';
+import multipart from '@fastify/multipart';
 import { PrismaClient } from '@prisma/client';
+import { pipeline } from 'stream';
+import util from 'util';
 import z from 'zod';
 import { RunService } from './services/run.service';
+import { UploadService } from './services/upload.service';
+
+const pump = util.promisify(pipeline);
 
 const start = async (): Promise<void> => {
 	loadEnv();
@@ -32,7 +38,10 @@ const start = async (): Promise<void> => {
 		validators: true,
 	});
 
+	await server.register(multipart);
+
 	const runService = new RunService(prisma);
+	const uploadService = new UploadService();
 
 	server.withTypeProvider().route({
 		method: 'POST',
@@ -73,6 +82,46 @@ const start = async (): Promise<void> => {
 
 			await reply.send({ message: 'ok' });
 		},
+	});
+
+	server.post('/upload', async (req, reply) => {
+		const files: any = [];
+		const fields: any = {};
+
+		// eslint-disable-next-line no-restricted-syntax
+		for await (const part of req.parts()) {
+			if (part.type === 'file') {
+				files.push({
+					fieldname: part.fieldname,
+					filename: part.filename,
+					mimetype: part.mimetype,
+					buffer: await part.toBuffer(),
+				});
+			} else {
+				// Podpora pro pole s více hodnotami
+				// eslint-disable-next-line no-lonely-if
+				if (fields[part.fieldname]) {
+					if (Array.isArray(fields[part.fieldname])) {
+						fields[part.fieldname].push(part.value);
+					} else {
+						fields[part.fieldname] = [fields[part.fieldname], part.value];
+					}
+				} else {
+					fields[part.fieldname] = part.value;
+				}
+			}
+		}
+
+		return {
+			success: true,
+			files: files.map((f: any) => ({
+				fieldname: f.fieldname,
+				filename: f.filename,
+				mimetype: f.mimetype,
+				size: f.buffer.length,
+			})),
+			fields,
+		};
 	});
 
 	registerShutdown([

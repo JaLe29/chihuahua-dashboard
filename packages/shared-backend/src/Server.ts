@@ -1,5 +1,5 @@
 import cors from '@fastify/cors';
-import type { FastifyInstance } from 'fastify';
+import type { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
 import Fastify from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { serializerCompiler, validatorCompiler } from 'fastify-type-provider-zod';
@@ -52,6 +52,10 @@ export class Server {
 		}
 
 		return this.server.withTypeProvider<ZodTypeProvider>();
+	}
+
+	post(path: string, handler: (request: FastifyRequest, reply: FastifyReply) => Promise<void>) {
+		this.server.post(path, handler);
 	}
 
 	async register(plugin: any, options?: any) {

@@ -1,34 +1,47 @@
 /* eslint-disable react/no-array-index-key */
-import { Timeline } from 'antd';
-import type { RunStep } from './run.types';
+import { DownOutlined } from '@ant-design/icons';
+import { css } from '@emotion/css';
+import { Tree, type TreeDataNode } from 'antd';
+import type { Step } from './run.types';
+
+const { DirectoryTree } = Tree;
 
 interface Props {
-	data: RunStep[];
+	data: {
+		steps: Step[];
+		titlePath: string[];
+	}[];
 }
 
-export const RunTimeline: React.FC<Props> = ({ data }) => (
-	<Timeline
-		items={data
-			.map(step => {
-				const hasSteps = step.steps?.length > 0;
+export const RunTimeline: React.FC<Props> = ({ data }) => {
+	console.log(data);
+	const walkTree = (d: Step[], deep = 0): TreeDataNode[] =>
+		d.map((item, i) => ({
+			title: item.title,
+			key: `${item.title}#${deep}#${i}`,
+			children: walkTree(item.steps, deep + 1),
+			isLeaf: !item.steps?.length,
+		}));
 
-				if (hasSteps) {
-					return [
-						{ children: step.title },
-						{
-							children: (
-								<>
-									<br />
-									<br />
-									<RunTimeline data={step.steps} />
-								</>
-							),
-						},
-					];
+	return (
+		<DirectoryTree
+			showLine
+			switcherIcon={<DownOutlined />}
+			treeData={walkTree(data.map(item => item.steps).flat())}
+			icon={false}
+			className={css`
+				.ant-tree-node-content-wrapper {
+					height: 50px;
+					display: flex;
+					align-items: center;
 				}
 
-				return { children: `${step.title} (${step.status ?? 'no status'}) (${step.duration})` };
-			})
-			.flat()}
-	/>
-);
+				.ant-tree-switcher {
+					height: 50px;
+					display: flex;
+					align-items: center;
+				}
+			`}
+		/>
+	);
+};

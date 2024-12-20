@@ -24,6 +24,7 @@
 	"dependencies": {
 		"@chihuahua-dashboard/shared-api": "workspace:*",
 		"@chihuahua-dashboard/shared-backend": "workspace:*",
+		"@fastify/multipart": "^9.0.1",
 		"@prisma/client": "5.22.0",
 		"zod": "^3.23.8"
 	},

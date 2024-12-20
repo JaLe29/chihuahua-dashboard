@@ -18,3 +18,31 @@ export type RunStep = {
 	duration: number;
 	status: 'skipped' | 'passed' | 'failed'; // ??
 };
+
+//
+
+export interface Step {
+	title: string;
+	steps: Step[];
+	duration: number;
+	titlePath: string[];
+	category: string;
+}
+
+export interface Action {
+	data: {
+		id: string;
+		step?: Step;
+		result?: {
+			duration: number;
+			status: string;
+		};
+	};
+	action: string;
+	createdAt: string;
+}
+
+export interface GroupedStep {
+	titlePath: string[];
+	steps: Step[];
+}

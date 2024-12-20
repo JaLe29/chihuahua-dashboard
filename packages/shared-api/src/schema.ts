@@ -87,3 +87,11 @@ export const PAYLOAD = z.union([
 ]);
 
 export type Payload = z.infer<typeof PAYLOAD>;
+
+export const PAYLOAD_UPLOAD = z.object({
+	name: z.string(),
+	contentType: z.string(),
+	file: z.instanceof(Buffer),
+});
+
+export type PayloadUpload = z.infer<typeof PAYLOAD_UPLOAD>;

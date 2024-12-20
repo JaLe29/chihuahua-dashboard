@@ -84,6 +84,7 @@ export class ChihuahuaReporter implements Reporter {
 	}
 
 	async onTestEnd(test: TestCase, result: TestResult) {
+		console.log(result.attachments);
 		await this.sendStep({
 			action: 'onTestEnd',
 			data: { id: test.id, result: { duration: result.duration, status: result.status } },

@@ -1,6 +1,6 @@
 /* eslint-disable react/no-array-index-key */
 import { Divider, Statistic } from 'antd';
-import type { RunStep, Run as RunType } from './run.types';
+import type { Action, GroupedStep, RunStep, Run as RunType, Step } from './run.types';
 import { getOnTestEnd } from './run.utils';
 import { RunTimeline } from './RunTimeline';
 
@@ -33,32 +33,6 @@ export const RunBody: React.FC<Props> = ({ data }) => {
 	// eslint-disable-next-line no-console
 	console.log({ steps, data });
 
-	interface Step {
-		title: string;
-		steps: Step[];
-		duration: number;
-		titlePath: string[];
-		category: string;
-	}
-
-	interface Action {
-		data: {
-			id: string;
-			step?: Step;
-			result?: {
-				duration: number;
-				status: string;
-			};
-		};
-		action: string;
-		createdAt: string;
-	}
-
-	interface GroupedStep {
-		titlePath: string[];
-		steps: Step[];
-	}
-
 	function groupStepsByTitlePath(actions: Action[]): GroupedStep[] {
 		const groupedSteps: Map<string, { titlePath: string[]; steps: Step[] }> = new Map();
 
@@ -80,12 +54,35 @@ export const RunBody: React.FC<Props> = ({ data }) => {
 
 	// Volání funkce
 	const grouped = groupStepsByTitlePath(data as any);
+	const cleaned = grouped.map(i => {
+		const loopSteps = i.steps ?? [];
+		const newSteps = [] as Step[];
+
+		for (let j = 0; j < loopSteps.length; j++) {
+			const currentStep = loopSteps[j]!;
+			const currentTitle = currentStep.title;
+			const nextStep = loopSteps[j + 1];
+			const nextTitle = nextStep?.title;
+
+			if (currentTitle === nextTitle && nextTitle) {
+				j++;
+				newSteps.push(nextStep);
+			} else {
+				newSteps.push(currentStep);
+			}
+		}
+
+		return {
+			...i,
+			steps: newSteps,
+		};
+	});
 
 	return (
 		<div>
-			<Statistic title="Active Users" value={onTestEnd?.result.duration ?? -1} />
+			<Statistic title="Duration" value={onTestEnd?.result.duration ?? -1} />
 			<Divider />
-			<RunTimeline data={grouped as any} />
+			<RunTimeline data={cleaned} />
 		</div>
 	);
 };
